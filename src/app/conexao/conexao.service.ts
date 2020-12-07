@@ -10,13 +10,13 @@ import { ConexaoLista } from '../model/ConexaoLista';
 
 
 @Injectable({
-  providedIn: 'root', // <---- Adiciona isto ao serviço
+  providedIn: 'root',
 })
 export class ConexaoService {
 
 
-  private backOnline: string = "http://127.0.0.1:5000";
-  private backLocal = "http://127.0.0.1:5000"
+  private backOnline: string = "http://construobre.pythonanywhere.com";
+  private backLocal: string = "http://127.0.0.1:5000"
 
   constructor(public dialog: MatDialog, public http: HttpClient) { }
 
@@ -26,11 +26,23 @@ export class ConexaoService {
     headers = headers.append('Content-Type', 'application/json;charset=UTF-8');
     let parametros = new HttpParams();
     console.log('backLocal', this.backLocal);
-    return this.http.post(this.backLocal + controllerUrl, obj, { headers: headers, params: parametros, reportProgress: true });
+    return this.http.post(this.backOnline + controllerUrl, obj, { headers: headers, params: parametros, reportProgress: true });
   }
 
   public gravarUsuario(usuario: any): Observable<any> {
     return this.post("/usuarios", usuario);
+  }
+
+  public gravarCliente(cliente: any): Observable<any> {
+    return this.post("/clientes", cliente);
+  }
+
+  public gravarImagem(imagem: any): Observable<any> {
+    return this.post("/imagens", imagem);
+  }
+
+  public gravarProjeto(projeto: any): Observable<any> {
+    return this.post("/projetos", projeto);
   }
 
   public gravarLogin(login: any): Observable<any> {

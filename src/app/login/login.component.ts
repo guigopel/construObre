@@ -28,6 +28,8 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
+    console.log('this.mainForm.controls.email.value',this.mainForm.controls.email.value);
+    console.log('this.mainForm.controls.senha.value',this.mainForm.controls.senha.value);
     if(this.mainForm.controls.email.value != null && this.mainForm.controls.email.value != "" &&
     this.mainForm.controls.senha.value != null && this.mainForm.controls.senha.value != "") {
       let login = {

@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.isLogado = sessionStorage.getItem('usuario') == null ? false : true;
+    this.isLogado = sessionStorage.getItem('token') == null ? false : true;
     console.log('isLogado',this.isLogado);
   }
 
@@ -54,7 +54,7 @@ export class HeaderComponent implements OnInit {
     console.log('sessionStorage.getItem',sessionStorage.getItem('token'));
     this.conexaoService.logout(sessionStorage.getItem('token')).subscribe(result => {
       console.log('result',result);
-      sessionStorage.removeItem("user");
+      sessionStorage.removeItem("usuario");
       sessionStorage.removeItem("token");
     })
     console.log('lougout');
