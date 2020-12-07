@@ -1,0 +1,51 @@
+
+<div class="div fora">
+  <div class="innerHeader">
+    <nav class="navbar navbar-expand-lg navbar-light colorConstru bg-light">
+      <a class="navbar-brand" href="#">ConstruObre</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse innerDiv" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" routerLink="/home">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/profissionais">Profissionais</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">Lojas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">Contato</a>
+          </li>
+        </ul>
+        <div class="justify-content-end">
+
+          <div [hidden]="isLogado" class="div">
+            <ul  class="navbar-nav mr-auto d-flex flex-row-reverse">
+              <li class="nav-item">
+                <button (click)="routerLogin()" mat-raised-button color="secondary">Login</button>
+              </li>
+              <li class="nav-item">
+                <button class="btnPrimary marginBtn" (click)="routerRegister()" mat-raised-button color="primary">Cadastrar</button>
+              </li>
+            </ul>
+          </div>
+
+          <div [hidden]="!isLogado" class="div">
+            <ul class="navbar-nav mr-auto d-flex flex-row-reverse">
+              <li class="nav-item">
+                <button (click)="logOut()" mat-raised-button color="secondary">Sair</button>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </nav>
+
+  </div>
+</div>
