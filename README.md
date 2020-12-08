@@ -19,7 +19,7 @@ git clone https://gitlab.com/projeto-de-desenvolvimento-2020.2/guilherme-repo/we
 
 # Routes Principais
 
-/home -- Home da Aplicação
-/registro -- Tela de cadastro
-/login -- Tela para realizar login
-/cadCliente -- Area administrativa, para realizar o cadastro de clientes
+* /home -- Home da Aplicação
+* /registro -- Tela de cadastro
+* /login -- Tela para realizar login
+* /cadCliente -- Area administrativa, para realizar o cadastro de clientes
