@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './app-routing/app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ClienteComponent } from './cliente/cliente.component';
+import { HomeComponent } from './home/home.component';
 // import { ConexaoService } from './conexao/conexao.service';
 
 @NgModule({
@@ -25,7 +26,8 @@ import { ClienteComponent } from './cliente/cliente.component';
     CadastroComponent,
     RegisterComponent,
     LoginComponent,
-    ClienteComponent
+    ClienteComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
