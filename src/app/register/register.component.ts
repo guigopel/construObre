@@ -1,23 +1,35 @@
 
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NotifierService } from "angular-notifier";
 import { ConexaoService } from '../conexao/conexao.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css','../../../node_modules/angular-notifier/styles.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class RegisterComponent implements OnInit {
 
   mainForm: FormGroup;
+  private readonly notifier: NotifierService;
+
 
   constructor(
-    private conexaoService: ConexaoService
-  ) { }
+    private conexaoService: ConexaoService,
+    private notifierService: NotifierService,
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {
+    this.notifier = notifierService;
+   }
 
   ngOnInit() {
     this.preencheFormGroup();
+
+
   }
 
   preencheFormGroup() {
@@ -32,6 +44,7 @@ export class RegisterComponent implements OnInit {
     if(this.mainForm.controls.nome.value != null && this.mainForm.controls.nome.value != "" &&
     this.mainForm.controls.email.value != null && this.mainForm.controls.email.value != "" &&
     this.mainForm.controls.senha.value != null && this.mainForm.controls.senha.value != "") {
+      this.notifier.notify("success", "Seu cadastro entá sendo realizado, aguarde um momento!");
       let usuario = {
         nome: this.mainForm.controls.nome.value,
         cpfCnpj: '',
@@ -60,11 +73,14 @@ export class RegisterComponent implements OnInit {
           }
 
          this.conexaoService.gravarLogin(login).subscribe(result => {
-          console.log('result login',result);
+           this.notifier.notify("success", "Cadastro realizado com sucesso!");
+          this.router.navigate(["login"]);
          })
         }
       })
       console.log('usuario',usuario);
+    } else {
+      this.notifier.notify("error", "Preencha os campos corretamente!");
     }
   }
 

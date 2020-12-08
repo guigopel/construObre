@@ -1,4 +1,4 @@
-
+<!--
 <div class="div fora">
   <div class="innerHeader">
     <nav class="navbar navbar-expand-lg navbar-light colorConstru bg-light">
@@ -48,4 +48,50 @@
     </nav>
 
   </div>
-</div>
+</div> -->
+
+<header>
+  <div class="header">
+    <div class="logo">
+      <div class="logoimg"><img class="imgLogoC" style="border-radius: 40px; height: 80px !important;"
+          src="../../assets/images/menu.png" alt="menutablet e celular"></div>
+    </div>
+
+    <div class="menu">
+
+
+      <nav>
+        <ul>
+          <li class="">
+            <a href="/home">Home</a>
+          </li>
+          <li>
+            <a href="">Profissionais</a>
+          </li>
+          <li>
+            <a href="">Lojas</a>
+          </li>
+          <li>
+            <a href="">Contato</a>
+          </li>
+          <!-- <div [hidden]="isLogado" class="div"> -->
+            <li [hidden]="isLogado" class="">
+              <a href="/registro">Cadastrar-se</a>
+            </li>
+            <li [hidden]="isLogado">
+              <a href="/login">Login</a>
+            </li>
+          <!-- </div> -->
+
+          <!-- <div [hidden]="!isLogado" class="div"> -->
+
+            <li [hidden]="!isLogado">
+              <a href="/login" (click)="logOut()">Sair</a>
+            </li>
+          <!-- </div> -->
+        </ul>
+      </nav>
+
+    </div>
+  </div>
+</header>

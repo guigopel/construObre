@@ -1,19 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
 import { ConexaoService } from '../conexao/conexao.service';
 
 @Component({
   selector: 'app-cliente',
   templateUrl: './cliente.component.html',
-  styleUrls: ['./cliente.component.css']
+  styleUrls: ['./cliente.component.css','../../../node_modules/angular-notifier/styles.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ClienteComponent implements OnInit {
 
   mainForm: FormGroup;
+  private readonly notifier: NotifierService;
 
   constructor(
     private conexaoService: ConexaoService,
-  ) { }
+    private notifierService: NotifierService,
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {
+    this.notifier = notifierService;
+  }
+
 
   ngOnInit() {
     this.preencheFormGroup();
@@ -37,6 +47,7 @@ export class ClienteComponent implements OnInit {
       urlImagem: new FormControl(null),
       urlProfissional: new FormControl(null),
     });
+    this.mainForm.controls.cidade.setValue("Pelotas");
   }
 
   onSalvar() {
@@ -47,7 +58,7 @@ export class ClienteComponent implements OnInit {
         nome: this.mainForm.controls.nome.value,
         cpfCnpj: this.mainForm.controls.cpfCnpj.value,
         cep: this.mainForm.controls.cep.value == null ? "" : this.mainForm.controls.cep.value.replace("-",""),
-        cidade: "Pelotas",
+        cidade: this.mainForm.controls.cidade.value,
         logradouro: this.mainForm.controls.logradouro.value == null ? "" : this.mainForm.controls.logradouro.value,
         numero: this.mainForm.controls.numero.value == null ? "" : this.mainForm.controls.numero.value,
         bairro: this.mainForm.controls.bairro.value == null ? "" : this.mainForm.controls.bairro.value,
@@ -55,36 +66,34 @@ export class ClienteComponent implements OnInit {
         tipoCliente: 1,
         // complemento: ,
         // referencial: ,
-        // urlProfissional: this.mainForm.controls.urlProfissional.value,
+        urlProfissional: this.mainForm.controls.urlProfissional.value,
         email: this.mainForm.controls.email.value,
         senha: '1234'
 
       }
+      console.log('cliente',cliente)
       this.conexaoService.gravarCliente(cliente).subscribe(resultCliente => {
-        console.log('resultCliente cliente',resultCliente);
         if(resultCliente != null) {
-
+          this.notifier.notify("success", "Cliente cadastrado com sucesso!");
           let imagem = {
             tipoRegistro: 1,
             registroId: resultCliente.clienteId,
             urlImagem: this.mainForm.controls.urlImagem.value,
             tipoPermissao: 3
           }
-
           let projeto = {
             projeto: this.mainForm.controls.projeto.value,
             valor: this.mainForm.controls.valor.value,
             cliente_Id: resultCliente.clienteId
           }
-
           this.conexaoService.gravarProjeto(projeto).subscribe(resultProjeto => {
             console.log('resultProjeto projeto',resultProjeto);
           })
 
           this.conexaoService.gravarImagem(imagem).subscribe(resultImagem => {
             console.log('resultImagem imagem',resultImagem)
-
           })
+          this.router.navigate(["home"]);
 
         }
       })

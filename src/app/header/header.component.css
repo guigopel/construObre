@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;500&display=swap');
 
-.header {
+/* .header {
   width: 100%;
   height: 80px;
   display: block;
@@ -47,5 +47,690 @@
 
 .colorConstru {
   background-color: #2EE478 !important;
+} */
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
+body{
+  font-family: 'Montserrat','Arial';
+  font-size: 13px;
+  overflow-x:hidden;  /*todo conteudo que ultrapassar a horizontal ele vai ser ignorado*/
+}
+
+header{
+  height: 100px;
+  background-color: #242427;
+  color:#fff;
+}
+
+.imgLogoC {
+  height: 80px !important;
+}
+
+.header{
+
+  max-width: 1140px;   /*Maxima Largura do Site do conteudo*/
+  height: 100px;
+  display: flex;
+ align-items: center;
+  margin:auto;  /*Colocar a div centralizada*/
+}
+
+.logo{
+  width: 100px;
+
+}
+
+.logoimg{
+  width: 80px;
+  height: 80px;
+  /* background-color: #b28756; */
+  border-radius: 40px;
+}
+
+.menu_opener{
+  display: none;
+}
+
+.menu{
+
+flex: 1px; /*Pegar o Restante */
+display: flex;
+
+justify-content: flex-end; /*Conteudo centralizado horizontalmente na direita*/
+
+}
+
+.menu ul,
+.menu li{
+  list-style: none; /*retirando os pontinhos do menu*/
+
+}
+
+.menu ul {
+  display: flex; /*So com isso o menu ja fica um ao lado do outro*/
+
+
+}
+
+.menu li a{
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-decoration: none;
+  padding-left: 10px;
+  padding-right: 5px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  border-bottom: 5px solid #000000;
+}
+
+
+
+.menu li a:hover,
+.menu .active a {
+/*Passar o mouse no a*/
+border-bottom: 5px solid #b28756;
+color: #ccc;
+
+}
+
+.banner{
+
+  height: calc(100vh - 100px); /*Colocar o banner do tamanho da tela do cidadao*/
+  background-color:#333;
+  /* background-image: url('../images/bg.jpg'); */
+  background-size: cover;/*Ajusta o tamanho dela dela de forma que ela preencha todoo espaço*/
+  background-position: bottom;/*Prioriza a parte inferior da imagem*/
+  overflow: hidden; /*Tudo que passar do tamanho do meu banner ele vai ignorar*/
+
+}
+
+.banner .sliders{
+  width: 1000vw;/*Tamanho de 10 sliders*/
+  height: 100%;/*Para pegar toda a area disponivel basicamente*/
+
+
+}
+
+.banner .slide {
+  width: 100vw; /*Largura da Tela*/
+  height: 100%;
+  display: inline-block; /*Fica um slide abaixo do outro*/
+  background-color: rgba(0, 0, 0, 0.8);/*Escurece um pouco a tela*/
+  background-color: rgba(0, 0, 0, 0,8);
+
+}
+
+.banner .slidearea{
+  display: flex;/*Ajuda a centralizar o elemento*/
+  flex-direction: column; /*Fica um elemento abaixo do outro*/
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.banner h1{
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 50px;
+}
+
+.banner h1 span{
+  color: #b28756;
+}
+
+.banner h2{
+  text-transform: uppercase;
+  margin-top: 20px;
+}
+
+.button{
+  display: inline-block;/*Vamos precisar mecher um pouco em padding e tudo mais*/
+  background-color: #b28756;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 600px;
+  text-decoration: none;
+  padding: 10px 30px;
+  margin-top: 30px;
+  border-radius: 20px;
+
+}
+
+.banner .sliders_pointers{
+  width: 100vw;
+  height: 20px;
+
+  position: absolute;/*Ele fica independente da area*/
+  margin-top: -50px;
+
+  /*Essas caras e que fazem o processo de alinhamento do site usando o flex box;*/
+  display: flex; /*Conteudo ficar no meio*/
+ justify-content: center;
+ align-items: center;
+
+}
+
+.banner .pointer{
+  width: 15px;
+  height: 15px;
+  border: 2px solid #b28756;
+  border-radius: 8px;
+  margin-left: 5px;
+  margin-right: 5px;
+  cursor: pointer;/*Quando passar o mouse as bolinhas criadas ficam clicaveis*/
+}
+
+.banner .pointer.active{
+  background-color: #b28756;
+}
+
+
+.default {
+
+  padding-top: 50px;
+  padding-bottom: 50px;
+
+}
+
+.default .section_title,/*Padrão dos dois*/
+.default .section_desc
+{
+text-align: center;/*Colocar os elementos no meio*/
+text-transform: uppercase;
+font-weight: 600px;
+}
+
+.default .section_title{
+ font-size: 20px;
+
+
+
+}
+
+.default .section_desc{
+  font-size: 12px;
+  color: #ccc;
+  font-size: 13px;
+  margin-top: 12px;
+  margin-bottom: 40px;
+}
+
+.default .section_body{
+  max-width: 1140px;   /*Maxima Largura do Site do conteudo*/
+  margin: auto;/*Os 3 pontinhos vão para o meio*/
+
+}
+
+.default.light{
+  background-color: #f7f7f7;
+}
+
+.default.light .section_title,
+.default.light .section_body
+{
+  color: #000000;
+}
+
+.default.dark{
+  background-color: #000000;
+}
+
+.default.dark .section_title,
+.default.dark .section_body
+{
+  color: #fff;
+}
+
+
+/*Css de Interface*/
+
+
+
+
+
+
+
+/*
+CSS de Área Especifica
+*/
+
+.section_aboutus{
+  display: flex;/*Para ficar um ao lado do outro*/
+}
+
+.section_aboutus--left{
+  flex:1;/*Pegar o restante*/
+}
+
+.section_aboutus--left p{ /*Mexer no P*/
+  font-size: 14px;
+  line-height: 25px;/*Espaçamento entre linhas*/
+}
+
+.section_aboutus--right{
+  width: 520px;/*Area da direita*/
+  text-align: center;/*Ajusta a imagem da uma espço para o texto*/
+}
+
+.section_aboutus--right img{
+width: 480px; /*Primeira coisa para fazer para diminuir a imagem*/
+box-shadow: 0px 5px 10px #333; /*Colocar as fumasinhas que estavam na imagem*/
+}
+
+.section_services{
+  display: flex;/*colocar os elementos um ao lado do outro*/
+}
+
+.section_service{
+  flex: 1;
+  text-align: center;
+  border-right: 1px solid #333;
+  padding: 15px;
+
+}
+
+.section_service:first-child{
+  border-left: 1px solid #333;/*Aplicar somente no primeiro o border left*/
+}
+
+.section_service h4{
+  margin-top: 20px;
+  text-transform: uppercase;
+  font-size: 18px;
+
+
+}
+
+.section_service p{
+  margin-top: 10px;
+  font-size: 13px;
+  color: #999;
+}
+
+
+/*Fazendo a area dos projects*/
+.section_projects{
+  /*Fazendo o conteudo ficar no meio*/
+  display: flex;
+  flex-direction: column; /*Fica um abaixo do outro*/
+  align-items: center; /*Assim fica um abaixo d outro*/
+}
+
+
+.section_projects--filters{
+  border: 1px solid #ccc;
+  background-color: #eee;
+  border-radius: 30px;
+
+  /*temos que fazer agora que eles fiquem no meio não de ponta a ponta*/
+  display: inline-block;/*Ele pega a area especifica dele mesmo*/
+  padding: 0px 20px; /*Colocar isso para dar um respiro (0 para cima e baixo e 20 para os lados)*/
+
+}
+
+.section_projects--filters ul,
+.section_projects--filters li{
+  list-style: none;/*propriedade na qual tira as bolinhas no ul*/
+}
+
+.section_projects--filters li{
+  display: inline-block; /*Um item fica ao lado do outro*/
+  padding: 10px;
+  text-transform: uppercase;
+  font-size: 13px;
+  border-left: 1px solid #ccc;
+  color: #555;
+  border-bottom: 3px solid #eee;
+  cursor: pointer;
+}
+
+.section_projects--filters li:hover,
+.section_projects--filters li.active
+{
+  border-bottom: 3px solid #b28756;
+}
+
+
+.section_projects--filters li:first-child{
+  border-left: 0;
+}
+
+.section_projects--photos{ /*Colocando a css da estrutura da foto de um modo geral*/
+width: 100vw; /*Ele vai pegar toda a tela contudo ele vai ter um tamanho maximo*/
+max-width: 1140px;/*Definindo um tamanho maximo*/
+margin-top: 20px;
+display: flex;/*Vai ser uma foto uma ao lado da outra*/ /*Porém com isso todas as fotos vao ficar uma ao lado da outra*/
+flex-wrap: wrap;/*Com isso ele quebra a linha aifica tudo certo*/
+justify-content: center; /*Centralizando o conteudo*/
+}
+
+.section_projects--photo{ /*Agora vamos definir as propriedades das nossas fotos de um modo especifico*/
+width: 280px; /*Assim ela ja cabe em um celular */
+
+}
+
+/*Vamos organizar o tamanho das fotos fotoarea de um modo geral*/
+.section_projects--photoarea{
+width: 260px; /*diminuindo 20 pois sao10de um lado e 10 de outro*/
+margin: 10px;
+height: 160px;
+}
+.section_projects--photoarea img{
+  width: inherit; /*herda do item anterior*/
+  height: inherit;/*Idem*/
+}
+
+.section_projects--photoinfo{
+position: absolute;
+background-color: rgba(0, 0, 0, 0.5);
+width: inherit;
+height: inherit;
+/*Maneira de conseguir inserir as informações de forma mais facil com essas propriedades*/
+display: none; /*Tem que ficar com o display none */
+flex-direction: column; /*Fica um item abaixo do outro*/
+justify-content: center;
+align-items: center;
+color: #fff;
+}
+
+.section_projects--photoinfo h5{
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.section_projects--photoarea:hover .section_projects--photoinfo{ /*Passou o mouse em foto area vai aparecer a mensagem em foto info*/
+display: flex;
+}
+
+/*Fazendo a area do time*/
+.bg_team{ /*Colocando a imagem*/
+  /* background-image: url('../images/bg.jpg'); */
+  background-size: cover;
+  background-position: center;
+  padding: 0; /*Com isso o a imagem vaiser escurecida 100%*/
+}
+
+
+/*Escurecer a imagem*/
+.section_team-area{
+  background-color: rgba(0, 0, 0, 0.8); /*Somente com essa propriedade não escurece toda a imagem*/
+  padding-top: 50px; /*Propriedades para escurecer a imagem*/
+  padding-bottom: 50px;/*Propriedades para escurecer a imagem*/
+
+}
+
+.section_team {
+  overflow: hidden; /*Remover a area disperdiçada*/
+  max-width: 880px;/*propriedade para ficar somente tres elementos na tela*/
+  margin: auto;/*Colocar os elementos no meio*/
+
+
+
+}
+
+/*Aula fazendo a parte 2 do time*/
+.section_team .sliders{
+  width: 1000vw;/*Tamanho de 10 sliders*/
+  height: 100%;/*Para pegar toda a area disponivel basicamente*/
+
+
+}
+
+.section_team .slide {
+  width: 280px;
+  height: 100%;
+  min-height: 300px;
+  display: inline-block; /*Fica um slide abaixo do outro*/
+  background-color: #ffffff;
+  margin-right: 20px;
+
+
+}
+
+.section_team .slidearea{
+  display: flex;/*Ajuda a centralizar o elemento*/
+  flex-direction: column; /*Fica um elemento abaixo do outro*/
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  color: #000;
+  padding: 30px; /*Ajuusta a imagem do team do sliders*/
+
+}
+
+/*Fazendo os 3 pontinhos do slide agora*/
+.section_team-area .sliders_pointers{
+  margin-top: 30px;/*Forma de arrumar o button tirar os 100vw que tinha*/
+  height: 20px;
+
+  /*Tirando essas propriedades pois ele não é mais position absoluteposition: absolute; *//*Ele fica independente da area*/
+  /*Ele é abaixo do slide mesmo margin-top: -50px; */
+
+  /*Essas caras e que fazem o processo de alinhamento do site usando o flex box;*/
+  display: flex; /*Conteudo ficar no meio*/
+ justify-content: center;
+ align-items: center;
+
+}
+
+.section_team-area .pointer{
+  width: 15px;
+  height: 15px;
+  border: 2px solid #b28756;
+  border-radius: 8px;
+  margin-left: 5px;
+  margin-right: 5px;
+  cursor: pointer;/*Quando passar o mouse as bolinhas criadas ficam clicaveis*/
+}
+
+.section_team-area .pointer.active{
+  background-color: #b28756;
+}
+
+
+.section_team--avatar{
+  width: 150px;
+  height: auto; /*Tamanho automatico 150 * 150*/
+}
+
+.section_team--name{
+text-transform: uppercase;
+font-weight: 600;/*Semi bold negrito*/
+font-size: 17px;
+margin-top: 30px;
+
+}
+
+.section_team--function{
+font-size: 14px;
+color: #999;
+margin-top: 5px;
+}
+
+.section_team--social{
+display: flex;
+margin-top: 20px;
+}
+
+.section_team--social a {
+  display: inline-flex; /*possibilidade de dar outra propriedade abaixo*/
+  justify-content: center;
+  align-items: center; /*Com essas propriedades é bem mais facil centralizar vertical e horizontalmennte*/
+  width: 25px;
+  height: 25px;
+  background-color: #ccc;
+  border-radius: 13px;
+  margin-right: 10px;
+}
+
+
+.section_team--social a:hover{
+  background-color: #b28756;
+}
+
+/*Fazendo a area do mapa*/
+.section_map { /*Cuida do bacground como um todo*/
+  /* background-image: url('../images/mapa.jpg'); */
+  background-size: cover;/*Pegar toda a area disponivels*/
+  background-position: center;
+
+
+  padding-top: 30px;
+  padding-bottom: 30px;
+
+}
+
+.section_map_area{
+  width: 100vw; /*Pega a area toda*/
+  max-width: 1140px; /*Contudo o limite*/
+  margin: auto;
+}
+
+.section_map--info{
+  width: 50%;
+  background-color: #fff;
+  color: #000;
+  padding-top: 20px;/*Tais propriedades foieu que colquei*/
+  padding-bottom: 20px;
+}
+
+.section-map-info-item{
+  display: flex;
+  align-items: center;
+  color: #999;
+  margin-bottom: 10px;
+}
+
+.section_map--info--item-img{
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  background-color: #999;
+  border-radius: 15px;
+  margin-right: 15px;
+}
+
+
+.section_map--info--item img{
+  width: 15px;
+  height: auto;
+}
+
+
+/*Fazendo a responsividade do site*/
+@media (min-width:450px) and (max-width:800px){
+  .logo{
+  margin-left: 30px;
+  }
+
+  .menu_opener{
+      width: 45px;
+      margin-right: 30px;
+      display: block; /*Para o menu aparecer*/
+  }
+
+  nav {
+      display: none; /*Navebar não apareceu*/
+      position: absolute;
+      z-index: 99;
+      background-color: rgba(0, 0, 0, 0.8);
+      width: 70vw;
+
+      height: calc(100vh - 100px);
+      top:100px;
+      right: 0;
+
+  }
+
+  .menu ul {
+      flex-direction: column;/*Fica um abaixodo outro*/
+
+  }
+
+  .menu li a {
+      font-weight: bold;
+      height: 80px;
+      font-size: 27px;
+      margin-left: 50px;
+      border: 0;
+  }
+
+  .menu li.active a{ /*Parte do elemento selecionado que vamos mudar*/
+      border: 0;
+      color: #b28756; /*Tirando a borda e colocando a color padrao*/
+  }
+
+
+  .section_aboutus{
+        /*display: flex;  */   /*Antes estava um ao lado do outro com o flex direction*/
+      flex-direction: column; /*Fica um item abaixo do outro*/
+  }
+
+  .section_aboutus--left{
+      margin-left: 30px;
+      margin-right: 30px;
+      margin-bottom: 30px;
+  }
+
+  .section_aboutus--right{
+      width: auto; /*Tirando a largura*/
+  }
+
+  .section_services{
+      flex-wrap: wrap;
+
+  }
+
+  .section_service{
+      min-width: 50%; /*isso faz xom que os icones tenham 50% de largura assim vai aparecer apenas 2 icones na coluna*/
+      margin-bottom: 30px;
+  }
+
+  .section_service:first-child{
+      border-left: 0;
+  }
+
+  .section_team{ /*Fica com 2 imagens na tela*/
+      max-width: 580px;
+  }
+
+
+
+  .section_map{
+      padding-left: 30px;
+      padding-right: 30px;
+  }
+
+  .section_map_area{
+      width: auto;
+  }
+
+  .section_map--info{
+      width: auto; /*Assim ele pega toda a area*/
+
+  }
+
+  .section_map--info--item{
+      margin-bottom: 20px; /*Espacamento entre as linhas de informacao*/
+
+  }
+
+  .section_map--info--item:first-child{
+      margin-bottom: 0;
+  }
+}
+
 

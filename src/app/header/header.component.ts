@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
 import { ConexaoService } from '../conexao/conexao.service';
 
 @Component({
@@ -10,20 +11,26 @@ import { ConexaoService } from '../conexao/conexao.service';
 export class HeaderComponent implements OnInit {
 
   isLogado = false;
+  private readonly notifier: NotifierService;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private conexaoService: ConexaoService
-  ) { }
+    private conexaoService: ConexaoService,
+    private notifierService: NotifierService,
+  ) {
+    this.notifier = notifierService;
+   }
 
   ngOnInit() {
-    this.isLogado = sessionStorage.getItem('token') == null ? false : true;
-    console.log('isLogado',this.isLogado);
-  }
+    if(sessionStorage.getItem('token') == 'null' || sessionStorage.getItem('token') == null) {
+      this.isLogado = false;
+    } else {
+      console.log('aqui');
+      this.isLogado = true;
+    }
 
-  routerLogin() {
-    this.router.navigate(["login"]);
+    console.log('isLogado',sessionStorage.getItem('token'));
   }
 
   navigateHeader(rota) {
@@ -46,17 +53,20 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  routerRegister() {
-    this.router.navigate(["registro"]);
-  }
-
   logOut() {
-    console.log('sessionStorage.getItem',sessionStorage.getItem('token'));
-    this.conexaoService.logout(sessionStorage.getItem('token')).subscribe(result => {
-      console.log('result',result);
+      // this.notifier.notify("success", "Logout realizado com sucesso. Volte sempre =D!");
       sessionStorage.removeItem("usuario");
       sessionStorage.removeItem("token");
-    })
-    console.log('lougout');
+
+      setTimeout(() => {
+        if(sessionStorage.getItem('token') == 'null' || sessionStorage.getItem('token') == null) {
+          this.isLogado = false;
+        } else {
+          console.log('aqui');
+          this.isLogado = true;
+        }
+        this.router.navigate(["login"]);
+      }, 100);
+
   }
 }

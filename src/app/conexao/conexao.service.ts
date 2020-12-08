@@ -29,12 +29,30 @@ export class ConexaoService {
     return this.http.post(this.backOnline + controllerUrl, obj, { headers: headers, params: parametros, reportProgress: true });
   }
 
+    public getGeneric(controllerUrl: string, parametros: HttpParams): Observable<any> {
+      return this.http.get(this.backOnline + controllerUrl, { params: parametros });
+    }
+
+    public getGenericPesquisa(controllerUrl: string, txtPesquisa: string): Observable<any> {
+      return this.http.get(this.backOnline + controllerUrl + txtPesquisa);
+    }
+
   public gravarUsuario(usuario: any): Observable<any> {
     return this.post("/usuarios", usuario);
   }
 
   public gravarCliente(cliente: any): Observable<any> {
     return this.post("/clientes", cliente);
+  }
+
+  public getClientes(): Observable<any> {
+    let parametros = new HttpParams();
+    // parametros = parametros.append("subdominio", subdominio);
+    return this.getGeneric("/clientes", parametros);
+  }
+
+  public getPesquisaClientes(txtPesquisa: string): Observable<any> {
+    return this.getGenericPesquisa("/clientes/pesq/", txtPesquisa);
   }
 
   public gravarImagem(imagem: any): Observable<any> {
@@ -51,10 +69,6 @@ export class ConexaoService {
 
   public realizarLogin(login: any): Observable<any> {
     return this.post("/login", login);
-  }
-
-  public getGeneric(controllerUrl: string, parametros: HttpParams): Observable<any> {
-    return this.http.get(this.backOnline + controllerUrl, { params: parametros });
   }
 
 

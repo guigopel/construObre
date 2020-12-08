@@ -1,19 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
 import { ConexaoService } from '../conexao/conexao.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css','../../../node_modules/angular-notifier/styles.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit {
 
   mainForm: FormGroup;
+  private readonly notifier: NotifierService;
 
   constructor(
-    private conexaoService: ConexaoService
-  ) { }
+    private conexaoService: ConexaoService,
+    private notifierService: NotifierService,
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {
+    this.notifier = notifierService;
+  }
 
   ngOnInit() {
     this.preencheFormGroup();
@@ -28,8 +37,6 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    console.log('this.mainForm.controls.email.value',this.mainForm.controls.email.value);
-    console.log('this.mainForm.controls.senha.value',this.mainForm.controls.senha.value);
     if(this.mainForm.controls.email.value != null && this.mainForm.controls.email.value != "" &&
     this.mainForm.controls.senha.value != null && this.mainForm.controls.senha.value != "") {
       let login = {
@@ -38,10 +45,22 @@ export class LoginComponent implements OnInit {
       }
 
       this.conexaoService.realizarLogin(login).subscribe(result => {
-        console.log('result',result);
-        sessionStorage.setItem('token', result.access_token);
-        sessionStorage.setItem('usuario', result.user);
+        console.log(result);
+        if(result.access_token == null) {
+          this.notifier.notify("error", "As credenciais de login estão incorretas!");
+        } else {
+          this.notifier.notify("success", "Login efetuado com sucesso!");
+          sessionStorage.setItem('token', result.access_token);
+          sessionStorage.setItem('usuario', result.user);
+          setTimeout(() => {
+            this.router.navigate(["home"]);
+          }, 100);
+
+        }
+
       })
+    } else {
+      this.notifier.notify("error", "Preencha os campos corretamente!");
     }
   }
 
