@@ -2,9 +2,13 @@
   background-image: url('../../assets/images/img-home.png');
 }
 
+.mastLoja {
+  background-image: url('../../assets/images/loja.jpg');
+}
+
 .testimonials {
-  padding-top: 5rem;
-  padding-bottom: 7rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 body {
@@ -182,6 +186,8 @@ body {
   justify-content: space-around;
   margin: 0px;
   margin-top: 10px;
+  padding-bottom: 15px;
+  display: -webkit-box;
 }
 .container .info h1 {
   margin: 0 0 15px;
