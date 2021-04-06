@@ -49,6 +49,52 @@
       </div>
     </div>
   </section>
+  <div class="mastLoja text-white text-center" style="padding-top: 10px; height: 350px;">
+    <div class="overlay"></div>
+    <div class="">
+      <!-- <div class="row classRow">
+        <div class="col-xl-9 mx-auto">
+          <h1 class="mb-5">Encontre um profissional para lhe atender!</h1>
+        </div>
+        <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+            <div class="form-row">
+              <div class="col-12 col-md-9 mb-2 mb-md-0">
+                <input type="email" class="form-control form-control-lg" formControlName="txtPesquisa" (keyup)="limpouPesquisa()" placeholder="Pesquise pelo nome do profissional">
+              </div>
+              <div class="col-12 col-md-3">
+                <button type="submit" class="btn btn-block btn-lg btn-primary" (click)="pesquisar()">Pesquisar
+
+                </button>
+              </div>
+            </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+  <div class="row classRow">
+
+    <div class="col-md-3" *ngFor="let item of lojas; let i = index;">
+      <div class="column">
+
+        <!-- Post-->
+        <div class="post-module">
+          <!-- Thumbnail-->
+          <div class="thumbnail">
+            <img src="{{item.urlProfissional}}"/>
+          </div>
+          <!-- Post Content-->
+          <div class="post-content">
+                <h1 class="title">{{item.nome}}</h1>
+            <h2 class="sub_title">{{item.cidade}}</h2>
+
+            <div class="post-meta">
+              <span class="timestamp">
+                Disponível</span><span class="comments"><i class="fa fa-comments"></i><a href="#"> x Comentários</a></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer class="footer bg-light">

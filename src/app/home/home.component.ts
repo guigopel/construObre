@@ -10,6 +10,7 @@ import { ConexaoService } from '../conexao/conexao.service';
 export class HomeComponent implements OnInit {
   mainForm: FormGroup;
   clientes = [];
+  lojas = [];
   constructor(
     private conexaoService: ConexaoService
   ) { }
@@ -17,6 +18,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.preencheFormGroup();
     this.setPage();
+    this.setPageLoja();
   }
 
   preencheFormGroup() {
@@ -30,6 +32,15 @@ export class HomeComponent implements OnInit {
       console.log('result.result',result);
       if(result != null) {
         this.clientes = result;
+      }
+    })
+  }
+
+  setPageLoja() {
+    this.conexaoService.getLojas().subscribe(result => {
+      console.log('result.result',result);
+      if(result != null) {
+        this.lojas = result;
       }
     })
   }

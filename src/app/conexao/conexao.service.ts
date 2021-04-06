@@ -25,7 +25,6 @@ export class ConexaoService {
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json;charset=UTF-8');
     let parametros = new HttpParams();
-    console.log('backLocal', this.backLocal);
     return this.http.post(this.backOnline + controllerUrl, obj, { headers: headers, params: parametros, reportProgress: true });
   }
 
@@ -47,8 +46,12 @@ export class ConexaoService {
 
   public getClientes(): Observable<any> {
     let parametros = new HttpParams();
-    // parametros = parametros.append("subdominio", subdominio);
-    return this.getGeneric("/clientes", parametros);
+    return this.getGeneric("/tipoProfissional", parametros);
+  }
+
+  public getLojas(): Observable<any> {
+    let parametros = new HttpParams();
+    return this.getGeneric("/tipoLoja", parametros);
   }
 
   public getPesquisaClientes(txtPesquisa: string): Observable<any> {
