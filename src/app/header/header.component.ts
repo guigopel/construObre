@@ -44,7 +44,7 @@ export class HeaderComponent implements OnInit {
         break;
 
       case '2':
-        // this.router.navigate(["lojas"]);
+        this.router.navigate(["lojas"]);
         break;
 
       case '3':
@@ -57,6 +57,8 @@ export class HeaderComponent implements OnInit {
       // this.notifier.notify("success", "Logout realizado com sucesso. Volte sempre =D!");
       sessionStorage.removeItem("usuario");
       sessionStorage.removeItem("token");
+      sessionStorage.removeItem("tipoPermissao");
+      sessionStorage.removeItem("registroId");
 
       setTimeout(() => {
         if(sessionStorage.getItem('token') == 'null' || sessionStorage.getItem('token') == null) {

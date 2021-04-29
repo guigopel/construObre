@@ -1,12 +1,7 @@
-import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material';
-import { Observable, throwError as observableThrowError } from 'rxjs';
-// import 'rxjs/add/operator/timeoutWith';
-import { map, filter, switchMap } from 'rxjs/operators'
-// import 'rxjs/Rx';
-
-import { ConexaoLista } from '../model/ConexaoLista';
+import { MatDialog } from '@angular/material';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -14,12 +9,11 @@ import { ConexaoLista } from '../model/ConexaoLista';
 })
 export class ConexaoService {
 
-
+  cryptoJS = require("crypto-js");
   private backOnline: string = "http://construobre.pythonanywhere.com";
   private backLocal: string = "http://127.0.0.1:5000"
 
   constructor(public dialog: MatDialog, public http: HttpClient) { }
-
 
   protected post(controllerUrl: string, obj: any): Observable<any> {
     let headers = new HttpHeaders();
@@ -28,16 +22,42 @@ export class ConexaoService {
     return this.http.post(this.backOnline + controllerUrl, obj, { headers: headers, params: parametros, reportProgress: true });
   }
 
-    public getGeneric(controllerUrl: string, parametros: HttpParams): Observable<any> {
-      return this.http.get(this.backOnline + controllerUrl, { params: parametros });
-    }
+  protected put(controllerUrl: string, obj: any): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json;charset=UTF-8');
+    let parametros = new HttpParams();
+    return this.http.put(this.backOnline + controllerUrl, obj, { headers: headers, params: parametros, reportProgress: true });
+  }
 
-    public getGenericPesquisa(controllerUrl: string, txtPesquisa: string): Observable<any> {
-      return this.http.get(this.backOnline + controllerUrl + txtPesquisa);
-    }
+  public getGeneric(controllerUrl: string, parametros: HttpParams): Observable<any> {
+    return this.http.get(this.backOnline + controllerUrl, { params: parametros });
+  }
+
+  public getGenericPesquisa(controllerUrl: string, txtPesquisa: string): Observable<any> {
+    return this.http.get(this.backOnline + controllerUrl + txtPesquisa);
+  }
+
+  public criptParam(param, name) {
+    let encrypted = this.cryptoJS.AES.encrypt(param.toString(), "fawei%@#4635");
+    sessionStorage.setItem(name, encrypted);
+  }
+
+  public decriptParam(param) {
+    var decrypted = this.cryptoJS.AES.decrypt(sessionStorage.getItem(param), "fawei%@#4635");
+    let stringDecript = decrypted.toString(this.cryptoJS.enc.Utf8)
+    return stringDecript;
+  }
 
   public gravarUsuario(usuario: any): Observable<any> {
     return this.post("/usuarios", usuario);
+  }
+
+  public gravarProduto(produto: any): Observable<any> {
+    return this.post("/produtos", produto);
+  }
+
+  public editarProduto(produto: any): Observable<any> {
+    return this.put("/produtos/" + produto.produtoId, produto);
   }
 
   public gravarCliente(cliente: any): Observable<any> {
@@ -58,6 +78,15 @@ export class ConexaoService {
     return this.getGenericPesquisa("/clientes/pesq/", txtPesquisa);
   }
 
+  public getProdutosCliente(cliente_id: string): Observable<any> {
+    return this.getGenericPesquisa("/produtos/cliente/", cliente_id);
+  }
+
+  public getProdutos(): Observable<any> {
+    let parametros = new HttpParams();
+    return this.getGeneric("/produtos/imagens", parametros);
+  }
+
   public gravarImagem(imagem: any): Observable<any> {
     return this.post("/imagens", imagem);
   }
@@ -74,16 +103,14 @@ export class ConexaoService {
     return this.post("/login", login);
   }
 
-
   public logout(auth_token): Observable<any> {
-    const headers = new HttpHeaders ({
+    const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${auth_token}`
     })
-    console.log('headers',headers);
+    console.log('headers', headers);
     return this.http.get(this.backOnline + "/logout", { headers: headers })
   }
-
 
   private handleError(error: any) {
     // this.overlayService.esconde();

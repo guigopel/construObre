@@ -3,6 +3,9 @@ body {
   background-color: #d8dbdb;
   color: #d8dbdb;
 }
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: white;
+}
 .page-content {
   width: 100%;
   margin:  0 auto;

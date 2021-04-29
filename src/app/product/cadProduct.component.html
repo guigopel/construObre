@@ -1,0 +1,58 @@
+<!-- <div class="col-12" > -->
+
+  <form [formGroup]="mainForm">
+    <div class="col-1">
+
+    </div>
+    <h2 style="text-align: center; margin-bottom: 8px;">Cadastro de produto</h2>
+    <div class="row container col-10 divAlignCenter" style="border: 1px solid #ccc!important;border-radius: 16px;background-color: white;">
+  
+      <div class="form-group col-md-2">
+        <label class="inputBold" for="produto">Produto</label>
+        <input type="text" class="form-control" id="produto" formControlName="produto">
+      </div>
+        <div class="form-group col-4">
+          <label class="inputBold" for="descricao">Descrição</label>
+          <input type="text" class="form-control" id="descricao" formControlName="descricao">
+        </div>
+        <div class="form-group col-3">
+          <label class="inputBold" for="urlImagem">Url imagem</label>
+          <input type="text" class="form-control" id="urlImagem" formControlName="urlImagem">
+        </div>
+        <div class="form-group col-2">
+          <label class="inputBold" for="valor">Valor R$</label>
+          <input type="text" class="form-control" id="valor" formControlName="valor">
+        </div>
+        <div class="col-1">
+
+          <i class="fas fa-plus-circle matIcon" (click)="onSalvar()" style="font-size: 30px; margin-top: 35px;"></i>
+        </div>
+        <div class="col-12">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Produto</th>
+                <th scope="col">Descrição</th>
+                <th scope="col">Preço</th>
+                <th scope="col">Ações</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let item of produtos; let i = index;">
+              <tr>
+                <th scope="row">{{item.produtoId}}</th>
+                <td>{{item.produto}}</td>
+                <td>{{item.descricao}}</td>
+                <td>{{item.valor | currency:'BRL'}}</td>
+                <td><i (click)="editProduto(item)" class="fas fa-edit matIcon"></i> <i (click)="deleteProduto(item)" class="fas fa-trash-alt matIcon"></i></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+    <div class="col-1">      
+    </div>
+  </form>
+<!-- </div> -->
+
+

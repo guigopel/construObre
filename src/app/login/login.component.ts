@@ -49,12 +49,14 @@ export class LoginComponent implements OnInit {
         if(result.access_token == null) {
           this.notifier.notify("error", "As credenciais de login estão incorretas!");
         } else {
+          this.conexaoService.criptParam(result.tipoPermissao.toString(), "tipoPermissao");
+          this.conexaoService.criptParam(result.registroId.toString(), "registroId");
           this.notifier.notify("success", "Login efetuado com sucesso!");
           sessionStorage.setItem('token', result.access_token);
           sessionStorage.setItem('usuario', result.user);
           setTimeout(() => {
             this.router.navigate(["home"]);
-          }, 100);
+          }, 1000);
 
         }
 
