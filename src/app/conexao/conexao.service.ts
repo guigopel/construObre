@@ -56,8 +56,20 @@ export class ConexaoService {
     return this.post("/produtos", produto);
   }
 
+  public gravarComentario(comentario: any): Observable<any> {
+    return this.post("/comentarios", comentario);
+  }
+
+  public gravarAvaliacao(avaliacao: any): Observable<any> {
+    return this.post("/avaliacoes", avaliacao);
+  }
+
   public editarProduto(produto: any): Observable<any> {
     return this.put("/produtos/" + produto.produtoId, produto);
+  }
+
+  public addQtdAcesso(acesso: any): Observable<any> {
+    return this.put("/acessos/" + acesso.acessoId, acesso);
   }
 
   public gravarCliente(cliente: any): Observable<any> {
@@ -67,6 +79,31 @@ export class ConexaoService {
   public getClientes(): Observable<any> {
     let parametros = new HttpParams();
     return this.getGeneric("/tipoProfissional", parametros);
+  }
+
+  public getProfissional(clienteId): Observable<any> {
+    let parametros = new HttpParams();
+    return this.getGeneric("/clientes/" + clienteId, parametros);
+  }
+
+  public getComentarioByClienteId(clienteId): Observable<any> {
+    let parametros = new HttpParams();
+    return this.getGeneric("/comentarios/cliente/" + clienteId, parametros);
+  }
+
+  public getAvaliacaoByClienteId(clienteId): Observable<any> {
+    let parametros = new HttpParams();
+    return this.getGeneric("/avaliacoes/cliente/" + clienteId, parametros);
+  }
+
+  public getProjetoByClienteId(clienteId): Observable<any> {
+    let parametros = new HttpParams();
+    return this.getGeneric("/projetos/cliente/" + clienteId, parametros);
+  }
+
+  public getItensProjeto(projetoId): Observable<any> {
+    let parametros = new HttpParams();
+    return this.getGeneric("/imagens/projeto/" + projetoId, parametros);
   }
 
   public getLojas(): Observable<any> {
@@ -89,6 +126,10 @@ export class ConexaoService {
 
   public gravarImagem(imagem: any): Observable<any> {
     return this.post("/imagens", imagem);
+  }
+
+  public gravarAcesso(acesso: any): Observable<any> {
+    return this.post("/acessos", acesso);
   }
 
   public gravarProjeto(projeto: any): Observable<any> {

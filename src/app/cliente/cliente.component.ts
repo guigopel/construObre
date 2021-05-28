@@ -80,19 +80,19 @@ export class ClienteComponent implements OnInit {
             registroId: resultCliente.clienteId,
             urlImagem: this.mainForm.controls.urlImagem.value,
             tipoPermissao: 3
-          }
-          // let projeto = {
-          //   projeto: this.mainForm.controls.projeto.value,
-          //   valor: this.mainForm.controls.valor.value,
-          //   cliente_Id: resultCliente.clienteId
-          // }
-          // this.conexaoService.gravarProjeto(projeto).subscribe(resultProjeto => {
-          //   console.log('resultProjeto projeto',resultProjeto);
-          // })
-
+          }    
           this.conexaoService.gravarImagem(imagem).subscribe(resultImagem => {
             console.log('resultImagem imagem',resultImagem)
           })
+          let acesso = {
+            clientId: resultCliente.clienteId,
+            qtdAcesso: 0,
+            tipoRegistro: this.mainForm.controls.cmbTipoPessoa.value == 1 ? 0 : 1
+          }
+          this.conexaoService.gravarAcesso(acesso).subscribe(resultAcesso => {
+            
+          })
+
           this.router.navigate(["home"]);
         }
       })

@@ -1,0 +1,178 @@
+<a id="button"><i class="fas fa-angle-up fa-2x"></i></a>
+<div class="container-fluid">
+    <section class="tm-mb-1" id="about">
+        <div class="tm-row tm-about-row">
+            <div class="tm-section-1-l col-md-5" style="padding-left: 0px;">
+                <img src="{{cliente.urlProfissional}}" alt="About image" class="tm-img-responsive">
+            </div>
+            <article class="tm-section-1-r tm-bg-color-8" style="width: 58%; padding-top: 10px; padding-bottom: 10px;">
+                <h2 class="tm-mb-2 tm-title-color">Informações do profissional</h2>
+                <div class="row" style="margin-left:0px; margin-right:0px;">
+                    <div class="col-7">
+                        <p>{{cliente.nome}}</p>
+                    </div>
+                    <div class="col-4 labelNaRow">
+                        <p>{{cliente.cpfCnpj}}</p>
+                    </div>
+                    <div class="col-11">
+                        <p>{{cliente.logradouro}}, {{cliente.numero}} - {{cliente.cidade}}</p>
+                    </div>
+                    <div class="col-4">
+
+                        <p>{{cliente.email}}</p>
+                    </div>
+                    <div class="col-4">
+
+                        <p>{{cliente.telefone}}</p>
+                    </div>
+                </div>
+
+
+            </article>
+        </div>
+    </section>
+    <div class="tm-bg-color-1 tm-mb-1 tm-row tm-social-row"
+        style="padding: 40px 70px 40px 70px; background-color: #7381bd; ">
+        <div class="tm-icon">
+            <div class="tm-icon-inner" style="cursor: pointer;">
+                <a (click)="atualizaGrid(0)">
+                    <i class="fas fa-hard-hat fa-4x tm-mb-1"></i>
+                    <p>Projetos</p>
+                </a>
+            </div>
+        </div>
+        <div class="tm-icon">
+            <div class="tm-icon-inner" style="cursor: pointer;">
+                <a (click)="atualizaGrid(1)">
+                    <i class="fas fa-comments fa-4x tm-mb-1"></i>
+                    <p>Comentários</p>
+                </a>
+            </div>
+        </div>
+        <div class="tm-icon">
+            <div class="tm-icon-inner" style="cursor: pointer;">
+                <a (click)="atualizaGrid(2)">
+                    <i class="fas fa-thumbs-up fa-4x tm-mb-1"></i>
+                    <p>Avaliar este profissional</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <section class="tm-mb-1 tm-row tm-services-row" id="services">
+        <div [hidden]="isMostrar != 0" class="row marginBotPainel">
+            <div class="col-6">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li *ngFor="let item of imagemProjeto; let i = index;" data-target="#carouselExampleIndicators"
+                            data-slide-to="i" [ngClass]="{'active': item.isAtivo}"></li>
+                    </ol>
+                    <div class="carousel-inner" style="height: 400px" style="border-radius: 25px !important;">
+                        <div *ngFor="let item of imagemProjeto; let i = index;" [ngClass]="{'active': item.isAtivo}"
+                            class="carousel-item active" style="height: 400px;">
+                            <img style="height: 400px;" class="d-block w-100" src="{{item.urlImagem}}"
+                                alt="First slide">
+                        </div>
+                    </div>
+
+                    <a class="carousel-control-prev" (click)="imagemAnterior()" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" (click)="imagemPosterior()" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+            <div *ngIf="projetoDestaque" class="col-5">
+                <h1>Informações do projeto</h1>
+                <h4 style="margin-top: 15px;">{{projetoDestaque.projeto}}</h4>
+                <p> Valor Total: {{projetoDestaque.valor | currency: 'BRL'}}</p>
+                <p>Aqui será uma breve descrição do projeto contando onde que foi realizado talvez como foi o andamento
+                    das coisas e tal.</p>
+                <p>{{projetoDestaque.projeto}}</p>
+            </div>
+            
+        </div>
+        <div [hidden]="isMostrar != 1" class="row marginBotPainel">
+            <div class="col-11">
+                <div *ngFor="let item of comentarios; let i = index;"
+                    class="tm-bg-color-white tm-contact-main innerDiv">
+                    <div class="map-outer blocoComentarios">
+                        <label>Acabamento</label>
+                        <star-rating value="{{item.acabamento}}" totalstars="5" checkedcolor="yellow"
+                            uncheckedcolor="black" size="28px" readonly="true"></star-rating>
+                        <label for="">Orçamento</label>
+                        <star-rating value="{{item.orcamento}}" totalstars="5" checkedcolor="yellow"
+                            uncheckedcolor="black" size="28px" readonly="true"></star-rating>
+                        <label for="">Organização</label>
+                        <star-rating value="{{item.organizacao}}" totalstars="5" checkedcolor="yellow"
+                            uncheckedcolor="black" size="28px" readonly="true"></star-rating>
+                        <label for="">Tempo de entrega</label>
+                        <star-rating value="{{item.tempoEntrega}}" totalstars="5" checkedcolor="yellow"
+                            uncheckedcolor="black" size="28px" readonly="true"></star-rating>
+                    </div>
+                    <div class="contact-form-outer">
+                        <div id="contact-form" class="tm-bg-color-6 tm-contact-form"
+                            style="border-radius: 25px !important;">
+                            <div class="form-group">
+                                <h5><strong>{{item.nome}}</strong> <label style="margin-left: 20px;">{{item.horaAvaliacao}}</label></h5>
+                                <label class="normalLabel">{{item.comentarioPessoa}}</label>
+                            </div>                                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div [hidden]="isMostrar != 2" class="row marginBotPainel" style="padding: 0px">
+            <div class="col-11">
+
+                <form [formGroup]="mainForm">
+                    <div class="tm-bg-color-white tm-contact-main innerDivCad">
+                        <div class="map-outer">
+                            <label>Acabamento</label>
+                            <star-rating #starAcabamento value="5" totalstars="5" checkedcolor="yellow"
+                                uncheckedcolor="black" size="28px" readonly="false"></star-rating>
+                            <label for="">Orçamento</label>
+                            <star-rating #starOrcamento value="5" totalstars="5" checkedcolor="yellow"
+                                uncheckedcolor="black" size="28px" readonly="false"></star-rating>
+                            <label for="">Organização</label>
+                            <star-rating #starOrganizacao value="5" totalstars="5" checkedcolor="yellow"
+                                uncheckedcolor="black" size="28px" readonly="false"></star-rating>
+                            <label for="">Tempo de entrega</label>
+                            <star-rating #starTempoEntrega value="5" totalstars="5" checkedcolor="yellow"
+                                uncheckedcolor="black" size="28px" readonly="false"></star-rating>
+                        </div>
+                        <div class="contact-form-outer">
+                            <div id="contact-form" class="tm-bg-color-6 tm-contact-form" style="border-radius: 25px !important;">
+                                <div class="form-group">
+                                    <h5>Comente sobre oque você achou do serviço deste profissional!</h5>
+                                    <!-- <input type="text" name="name" autocomplete="off" class="form-control" placeholder="Informe seu nome" formControlName="txtNome" required="" /> -->
+                                </div>
+                                <div class="form-group">
+                                    <textarea rows="8" name="message" class="form-control" formControlName="txtComentario"
+                                        placeholder="Escreva o seu comentário" required=""></textarea>
+                                </div>
+                                <div>
+                                    <button (click)="onSalvar()" type="submit" class="ml-auto tm-btn tm-btn-3">
+                                        Comentar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- </section> -->
+                    <!-- </div> -->
+    
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+<script src="../../assets/vendor/jquery/jquery.min.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/pro/js/jquery.min.js"></script> <!-- https://jquery.com/download/ -->
+<script src="../../assets/pro/js/imagesloaded.pkgd.min.js"></script> <!-- https://imagesloaded.desandro.com/ -->
+<script src="../../assets/pro/js/isotope.pkgd.min.js"></script> <!-- https://isotope.metafizzy.co/ -->
+<script src="../../assets/pro/js/jquery.singlePageNav.min.js"></script>
+<!-- https://github.com/ChrisWojcik/single-page-nav -->

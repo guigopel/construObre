@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
         } else {
           this.conexaoService.criptParam(result.tipoPermissao.toString(), "tipoPermissao");
           this.conexaoService.criptParam(result.registroId.toString(), "registroId");
+          this.conexaoService.criptParam(this.mainForm.controls.email.value.toString(), "email");
           this.notifier.notify("success", "Login efetuado com sucesso!");
           sessionStorage.setItem('token', result.access_token);
           sessionStorage.setItem('usuario', result.user);

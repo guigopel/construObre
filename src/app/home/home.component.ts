@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConexaoService } from '../conexao/conexao.service';
 
 @Component({
@@ -12,7 +13,9 @@ export class HomeComponent implements OnInit {
   clientes = [];
   lojas = [];
   constructor(
-    private conexaoService: ConexaoService
+    private conexaoService: ConexaoService,
+    private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -28,27 +31,34 @@ export class HomeComponent implements OnInit {
   }
 
   setPage() {
-    this.conexaoService.getClientes().subscribe(result => {
-      console.log('result.result',result);
+    this.conexaoService.getClientes().subscribe(result => {  
+      console.log('reult',result);    
       if(result != null) {
         this.clientes = result;
       }
-    })
+    });
   }
 
   setPageLoja() {
     this.conexaoService.getLojas().subscribe(result => {
       console.log('result.result',result);
-      if(result != null) {
-        this.lojas = result;
+      if(result != null && result.id != 0) {
+        this.lojas = result.length == 1 ? result[0] : result;
       }
     })
   }
 
+  visualizarPro(row) {    
+    this.router.navigate(["profissional/" + row.clienteId]);
+  }
+
+  visualizarLoja(row) {    
+    this.router.navigate(["lojas/" + row.clienteId]);
+  }
+
  pesquisar() {
    if(this.mainForm.controls.txtPesquisa.value != null && this.mainForm.controls.txtPesquisa.value != "") {
-     this.conexaoService.getPesquisaClientes(this.mainForm.controls.txtPesquisa.value).subscribe(result => {
-       console.log('result',result);
+     this.conexaoService.getPesquisaClientes(this.mainForm.controls.txtPesquisa.value).subscribe(result => {       
        if(result.id == 0) {
         this.clientes = [];
        } else {

@@ -1,3 +1,4 @@
+import { LojaComponent } from './loja/loja.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing/app-routing.module';
@@ -16,8 +17,12 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ClienteComponent } from './cliente/cliente.component';
 import { HomeComponent } from './home/home.component';
+import { RatingModule } from 'ng-starrating';
 import { NotifierModule, NotifierOptions } from "angular-notifier";
 import { ListProductComponent } from './product/listProduct/listProduct.component';
+import { VisualizarProfissionalComponent } from './visualizarProfissional/visualizarProfissional.component';
+import { ListProfessionalComponent } from './visualizarProfissional/list/listProfessional.component';
+import { RelacaoLojaComponent } from './loja/relacao/relacaoLoja.component';
 // import { ConexaoService } from './conexao/conexao.service';
 
 const customNotifierOptions: NotifierOptions = {
@@ -67,9 +72,13 @@ const customNotifierOptions: NotifierOptions = {
     HeaderComponent,
     CadProductComponent,
     RegisterComponent,
+    RelacaoLojaComponent,
+    LojaComponent,
     LoginComponent,
     ClienteComponent,
+    ListProfessionalComponent,
     ListProductComponent,
+    VisualizarProfissionalComponent,
     HomeComponent
   ],
   imports: [
@@ -84,6 +93,7 @@ const customNotifierOptions: NotifierOptions = {
     MatSelectModule,
     MatPaginatorModule,
     MatSortModule,
+    RatingModule,
     MatInputModule,
     MatDialogModule,
     NotifierModule.withConfig(customNotifierOptions),

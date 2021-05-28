@@ -46,46 +46,46 @@ export class RegisterComponent implements OnInit {
     if(!regex.test(this.mainForm.controls.senha.value)) {
       this.notifier.notify("error", "A senha precisa ter no mínimo 8 caracteres, 1 letra, 1 caractere especial e 1 número");
     } 
-    // else {
-    //   if(this.mainForm.controls.nome.value != null && this.mainForm.controls.nome.value != "" &&
-    //   this.mainForm.controls.email.value != null && this.mainForm.controls.email.value != "" &&
-    //   this.mainForm.controls.senha.value != null && this.mainForm.controls.senha.value != "") {
-    //     this.notifier.notify("success", "Seu cadastro entá sendo realizado, aguarde um momento!");
-    //     let usuario = {
-    //       nome: this.mainForm.controls.nome.value,
-    //       cpfCnpj: '',
-    //       cep: '',
-    //       cidade: '',
-    //       logradouro: '',
-    //       numero: '',
-    //       bairro: '',
-    //       telefone: '',
-    //       tipoCliente: 1,
-    //       email: this.mainForm.controls.email.value,
-    //       senha: this.mainForm.controls.senha.value,
+    else {
+      if(this.mainForm.controls.nome.value != null && this.mainForm.controls.nome.value != "" &&
+      this.mainForm.controls.email.value != null && this.mainForm.controls.email.value != "" &&
+      this.mainForm.controls.senha.value != null && this.mainForm.controls.senha.value != "") {
+        this.notifier.notify("success", "Seu cadastro entá sendo realizado, aguarde um momento!");
+        let usuario = {
+          nome: this.mainForm.controls.nome.value,
+          cpfCnpj: '',
+          cep: '',
+          cidade: '',
+          logradouro: '',
+          numero: '',
+          bairro: '',
+          telefone: '',
+          tipoCliente: 1,
+          email: this.mainForm.controls.email.value,
+          senha: this.mainForm.controls.senha.value,
   
-    //     }
-    //     this.conexaoService.gravarUsuario(usuario).subscribe(result => {        
-    //       if(result != null) {
-    //         let login = {
-    //           nome: result.nome,
-    //           email: result.email,
-    //           senha: this.mainForm.controls.senha.value,
-    //           tipoPermissao: 4,
-    //           registroId: result.usuarioId
-    //         }
+        }
+        this.conexaoService.gravarUsuario(usuario).subscribe(result => {        
+          if(result != null) {
+            let login = {
+              nome: result.nome,
+              email: result.email,
+              senha: this.mainForm.controls.senha.value,
+              tipoPermissao: 4,
+              registroId: result.usuarioId
+            }
   
-    //        this.conexaoService.gravarLogin(login).subscribe(result => {
-    //          this.notifier.notify("success", "Cadastro realizado com sucesso!");
-    //         this.router.navigate(["login"]);
-    //        })
-    //       }
-    //     })      
-    //   } else {
-    //     this.notifier.notify("error", "Preencha os campos corretamente!");
-    //   }
+           this.conexaoService.gravarLogin(login).subscribe(result => {
+             this.notifier.notify("success", "Cadastro realizado com sucesso!");
+            this.router.navigate(["login"]);
+           })
+          }
+        })      
+      } else {
+        this.notifier.notify("error", "Preencha os campos corretamente!");
+      }
 
-    // }
+    }
   }
 
 }

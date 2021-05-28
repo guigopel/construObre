@@ -58,7 +58,7 @@ export class CadProductComponent implements OnInit {
         this.produtos = result;
         this.produtos.sort((a, b) => (a.produtoId < b.produtoId ? -1 : 1));
       }
-    })
+    });
   }
 
   limpaCampos() {
