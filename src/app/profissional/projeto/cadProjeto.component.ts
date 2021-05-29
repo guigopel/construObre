@@ -2,15 +2,15 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
-import { ConexaoService } from '../conexao/conexao.service';
+import { ConexaoService } from 'src/app/conexao/conexao.service';
 
 @Component({
-  selector: 'app-cadProduct',
-  templateUrl: './cadProduct.component.html',
-  styleUrls: ['./cadProduct.component.css'],
+  selector: 'app-cadProjeto',
+  templateUrl: './cadProjeto.component.html',
+  styleUrls: ['./cadProjeto.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
-export class CadProductComponent implements OnInit {
+export class CadProjetoComponent implements OnInit {
   CryptoJS = require("crypto-js");
   permissao = 0;
   produtoId = 0;

@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { ConexaoService } from '../../conexao/conexao.service';
 
 @Component({
-  selector: 'app-listProfessional',
-  templateUrl: './listProfessional.component.html',
-  styleUrls: ['./listProfessional.component.css']
+  selector: 'app-listProfissional',
+  templateUrl: './listProfissional.component.html',
+  styleUrls: ['./listProfissional.component.css']
 })
-export class ListProfessionalComponent implements OnInit {
+export class ListProfissionalComponent implements OnInit {
   mainForm: FormGroup;
   clientes = [];
   produtos = [];

@@ -8,12 +8,12 @@ import * as _moment from 'moment';
 const moment = _moment;
 
 @Component({
-  selector: 'app-visualizarProfissional',
-  templateUrl: './visualizarProfissional.component.html',
-  styleUrls: ['./visualizarProfissional.component.css'],
+  selector: 'app-profissional',
+  templateUrl: './profissional.component.html',
+  styleUrls: ['./profissional.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class VisualizarProfissionalComponent implements OnInit {
+export class ProfissionalComponent implements OnInit {
 
   @ViewChild('starAcabamento') starAcabamento;
   @ViewChild('starOrcamento') starOrcamento;

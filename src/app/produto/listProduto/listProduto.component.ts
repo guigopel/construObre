@@ -3,11 +3,11 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { ConexaoService } from '../../conexao/conexao.service';
 
 @Component({
-  selector: 'app-listProduct',
-  templateUrl: './listProduct.component.html',
-  styleUrls: ['./listProduct.component.css']
+  selector: 'app-listProduto',
+  templateUrl: './listProduto.component.html',
+  styleUrls: ['./listProduto.component.css']
 })
-export class ListProductComponent implements OnInit {
+export class ListProdutoComponent implements OnInit {
   mainForm: FormGroup;
   clientes = [];
   produtos = [];

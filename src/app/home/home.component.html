@@ -59,10 +59,10 @@
           </div>
           <div (click)="visualizarLoja(item)" class="post-content">
                 <h1 class="title">{{item.nome}}</h1>
-            <h2 class="sub_title">{{item.cidade}}</h2>
-            <div class="post-meta">
-              <span class="timestamp">
-                Disponível</span><span class="comments"><i class="fa fa-comments"></i><a href="#"> x Comentários</a></span></div>
+            <h2 class="sub_title" style="text-align: center;">{{item.cidade}}</h2>
+            <div class="post-meta" style="display: grid;">
+              <span style="text-align: center;" class="comments"><a style="color: black; text-align: center;"> {{item.qtdAcesso}} acessos</a></span>
+              </div>
           </div>
         </div>
       </div>

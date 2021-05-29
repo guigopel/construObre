@@ -1,3 +1,4 @@
+import { ListProfissionalComponent } from './profissional/list/listProfissional.component';
 import { LojaComponent } from './loja/loja.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -7,7 +8,7 @@ import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatButtonModule} from '@angular/material/button';
-import { CadProductComponent } from './product/cadProduct.component';
+import { CadProdutoComponent } from './produto/cadProduto.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DropdownModule } from 'primeng/dropdown';
@@ -18,11 +19,10 @@ import { LoginComponent } from './login/login.component';
 import { ClienteComponent } from './cliente/cliente.component';
 import { HomeComponent } from './home/home.component';
 import { RatingModule } from 'ng-starrating';
-import { NotifierModule, NotifierOptions } from "angular-notifier";
-import { ListProductComponent } from './product/listProduct/listProduct.component';
-import { VisualizarProfissionalComponent } from './visualizarProfissional/visualizarProfissional.component';
-import { ListProfessionalComponent } from './visualizarProfissional/list/listProfessional.component';
+import { ProfissionalComponent } from './profissional/profissional.component';
+import { NotifierOptions, NotifierModule } from 'angular-notifier';
 import { RelacaoLojaComponent } from './loja/relacao/relacaoLoja.component';
+import { ListProdutoComponent } from './produto/listProduto/listProduto.component';
 // import { ConexaoService } from './conexao/conexao.service';
 
 const customNotifierOptions: NotifierOptions = {
@@ -70,15 +70,15 @@ const customNotifierOptions: NotifierOptions = {
   declarations: [
     AppComponent,
     HeaderComponent,
-    CadProductComponent,
+    CadProdutoComponent,
     RegisterComponent,
     RelacaoLojaComponent,
     LojaComponent,
     LoginComponent,
     ClienteComponent,
-    ListProfessionalComponent,
-    ListProductComponent,
-    VisualizarProfissionalComponent,
+    ListProfissionalComponent,
+    ListProdutoComponent,
+    ProfissionalComponent,
     HomeComponent
   ],
   imports: [
