@@ -59,14 +59,12 @@ export class ProfissionalComponent implements OnInit {
       registroId: this.paramId,
       tipoRegistro: 0
     }
-    this.conexaoService.addQtdAcesso(acesso).subscribe(result => {
-      console.log('result',result);
+    this.conexaoService.addQtdAcesso(acesso).subscribe(result => {      
     });
   }
 
   carregaProfissional() {
-    this.conexaoService.getProfissional(this.paramId).subscribe(result => {
-      console.log('result',result);
+    this.conexaoService.getProfissional(this.paramId).subscribe(result => {      
       if (result != null && result.id != 0) {
         this.cliente = result[0];        
         this.adicionaAcesso();

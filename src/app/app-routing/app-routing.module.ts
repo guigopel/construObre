@@ -1,3 +1,4 @@
+import { CadProjetoComponent } from './../profissional/projeto/cadProjeto.component';
 import { HomeComponent } from './../home/home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'registro', component: RegisterComponent},
   { path: 'cadCliente', component: ClienteComponent},
   { path: 'cadProduto', component: CadProdutoComponent},
+  { path: 'cadProjeto', component: CadProjetoComponent},
   { path: 'produtos', component: ListProdutoComponent},
   { path: 'lojas', component: RelacaoLojaComponent},
   { path: 'lojas/:id', component: LojaComponent},

@@ -68,8 +68,16 @@ export class ConexaoService {
     return this.put("/produtos/" + produto.produtoId, produto);
   }
 
+  public editarProjeto(projeto: any): Observable<any> {
+    return this.put("/projetos/" + projeto.projetoId, projeto);
+  }
+
   public addQtdAcesso(acesso: any): Observable<any> {
     return this.put("/acessos/" + acesso.acessoId, acesso);
+  }
+
+  public editarImagem(imagem: any): Observable<any> {
+    return this.put("/imagens/" + imagem.imagemId, imagem);
   }
 
   public gravarCliente(cliente: any): Observable<any> {
@@ -94,6 +102,10 @@ export class ConexaoService {
   public getAvaliacaoByClienteId(clienteId): Observable<any> {
     let parametros = new HttpParams();
     return this.getGeneric("/avaliacoes/cliente/" + clienteId, parametros);
+  }
+  public getProjetos(): Observable<any> {
+    let parametros = new HttpParams();
+    return this.getGeneric("/projetos", parametros);
   }
 
   public getProjetoByClienteId(clienteId): Observable<any> {

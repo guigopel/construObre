@@ -5,45 +5,69 @@
 
     </div>
     <h2 style="text-align: center; margin-bottom: 8px;">Cadastro de projetos</h2>
-    <div class="row container col-10 divAlignCenter" style="border: 1px solid #ccc!important;border-radius: 16px;background-color: white;">
-  
-      <!-- <div class="form-group col-md-2">
-        <label class="inputBold" for="produto">Produto</label>
-        <input type="text" class="form-control" id="produto" formControlName="produto">
+    <div class="row container col-10 divAlignCenter" style="border: 1px solid #ccc!important;border-radius: 16px;background-color: white;">        
+        <div [hidden]="isCadastro" class="col-2 pull-right" style="padding: 10px 0px 10px 0px">
+          <button type="button" class="btn btn-primary" (click)="addProjeto()">Adicionar projeto</button>
+        </div>
+        <div [hidden]="!isCadastro" class="form-group col-3">
+        <label class="inputBold" for="produto">Projeto</label>
+        <input type="text" class="form-control" id="produto" formControlName="projeto">
       </div>
-        <div class="form-group col-4">
+        <div [hidden]="!isCadastro" class="form-group col-7">
           <label class="inputBold" for="descricao">Descrição</label>
           <input type="text" class="form-control" id="descricao" formControlName="descricao">
         </div>
-        <div class="form-group col-3">
+        <div [hidden]="!isCadastro" class="form-group col-2">
+          <label class="inputBold" for="valor">Valor R$</label>
+          <input type="text" class="form-control" id="valor" formControlName="valor">
+        </div>
+        <div [hidden]="!isCadastro" class="form-group col-10">
           <label class="inputBold" for="urlImagem">Url imagem</label>
           <input type="text" class="form-control" id="urlImagem" formControlName="urlImagem">
         </div>
-        <div class="form-group col-2">
-          <label class="inputBold" for="valor">Valor R$</label>
-          <input type="text" class="form-control" id="valor" formControlName="valor">
-        </div> -->
-        <div class="col-1">
-          <button type="button" class="btn btn-primary" (click)="addProjeto()">Adicionar projeto</button>
+        <div [hidden]="!isCadastro" class="col-2 form-group" style="padding:0px">
+          <button type="button" style="margin-top: 31px;"class="btn btn-primary" (click)="addProjeto()">Adicionar imagem</button>
         </div>
-        <div class="col-12">
+        <div [hidden]="!isCadastro" class="col-2 form-group" style="padding:0px">
+          <button type="button" class="btn btn-primary" (click)="onSalvar()">Salvar projeto</button>
+        </div>
+        <div [hidden]="isCadastro" class="col-12">
           <table class="table table-striped">
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Produto</th>
-                <th scope="col">Descrição</th>
-                <th scope="col">Preço</th>
+                <th scope="col">Projeto</th>
+                <!-- <th scope="col">Descrição</th> -->
+                <th scope="col">Valor</th>
                 <th scope="col">Ações</th>
               </tr>
             </thead>
-            <tbody *ngFor="let item of produtos; let i = index;">
+            <tbody *ngFor="let item of projetos; let i = index;">
               <tr>
-                <th scope="row">{{item.produtoId}}</th>
-                <td>{{item.produto}}</td>
-                <td>{{item.descricao}}</td>
+                <th scope="row">{{item.projetoId}}</th>
+                <td>{{item.projeto}}</td>
+                <!-- <td>{{item.descricao}}</td> -->
                 <td>{{item.valor | currency:'BRL'}}</td>
-                <td><i (click)="editProduto(item)" class="fas fa-edit matIcon"></i> <i (click)="deleteProduto(item)" class="fas fa-trash-alt matIcon"></i></td>
+                <td><i (click)="editProjeto(item,index)" class="fas fa-edit matIcon"></i> <i (click)="deleteProjeto(item,index)" class="fas fa-trash-alt matIcon"></i></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div [hidden]="!isCadastro" class="col-12">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th style="width: 20%;"scope="col">Imagem</th>
+                <th style="width: 70%;" scope="col">Url da imagem</th>
+                <th style="width: 10%;"scope="col">Ações</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let item of imagemProjeto; let i = index;">
+              <tr>
+                <th style="width: 20%;" scope="row"><img src="{{item.urlImagem}}"></th>
+                <td style="width: 70%;" >{{item.projeto}}</td>
+                <td style="width: 10%;"><i (click)="editProjeto(item,index)" class="fas fa-edit matIcon"></i> 
+                  <i (click)="deleteProjeto(item,index)" class="fas fa-trash-alt matIcon"></i></td>
               </tr>
             </tbody>
           </table>

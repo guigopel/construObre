@@ -23,6 +23,7 @@ import { ProfissionalComponent } from './profissional/profissional.component';
 import { NotifierOptions, NotifierModule } from 'angular-notifier';
 import { RelacaoLojaComponent } from './loja/relacao/relacaoLoja.component';
 import { ListProdutoComponent } from './produto/listProduto/listProduto.component';
+import { CadProjetoComponent } from './profissional/projeto/cadProjeto.component';
 // import { ConexaoService } from './conexao/conexao.service';
 
 const customNotifierOptions: NotifierOptions = {
@@ -77,6 +78,7 @@ const customNotifierOptions: NotifierOptions = {
     LoginComponent,
     ClienteComponent,
     ListProfissionalComponent,
+    CadProjetoComponent,
     ListProdutoComponent,
     ProfissionalComponent,
     HomeComponent

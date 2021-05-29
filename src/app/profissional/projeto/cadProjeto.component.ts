@@ -13,9 +13,13 @@ import { ConexaoService } from 'src/app/conexao/conexao.service';
 export class CadProjetoComponent implements OnInit {
   CryptoJS = require("crypto-js");
   permissao = 0;
-  produtoId = 0;
+  projetoId = 0;
+  clienteId = 0;
+  imagemId = 0;
+  isCadastro = false;
   isEdit = false;
-  produtos = [];
+  projetos = [];
+  imagemProjeto = [];
   private readonly notifier: NotifierService;
 
   mainForm: FormGroup;
@@ -30,97 +34,140 @@ export class CadProjetoComponent implements OnInit {
 
   ngOnInit() {
     this.preencheFormGroup();
+    this.permissao = this.conexaoService.decriptParam("tipoPermissao");
     if(!sessionStorage.getItem("tipoPermissao")) {
       this.router.navigate(["home"]);
     }
-    this.permissao = this.conexaoService.decriptParam("tipoPermissao");
-    this.carregaProdutos();
-    // console.log('this.permissao',this.permissao);
-    // if(this.permissao != 2  ) {
-    //   console.log('NÂO TEM PERMISSAO');
-    //   this.router.navigate(["home"]);
-    // }
+    console.log('')
+    if(this.permissao != 2 && this.permissao != 1) {
+      this.notifier.notify("error", "Você não possui permissão para acessar o módulo de projetos!");
+      this.router.navigate(["home"]);
+    } else {
+      this.clienteId = this.conexaoService.decriptParam("registroId");
+      this.carregaProjetos();
+      
+    }
   }
 
   preencheFormGroup() {
     this.mainForm = new FormGroup({
-      produto: new FormControl(null),
+      projeto: new FormControl(null),
       descricao: new FormControl(null),
       urlImagem: new FormControl(null),
       valor: new FormControl(null),
     });
   }
 
-  carregaProdutos() {
-    this.conexaoService.getProdutosCliente("10").subscribe(result => {
+  carregaProjetos() {
+    this.conexaoService.getProjetoByClienteId(this.clienteId).subscribe(result => {
       console.log('result.result',result);
       if(result != null) {
-        this.produtos = result;
-        this.produtos.sort((a, b) => (a.produtoId < b.produtoId ? -1 : 1));
+        this.projetos = result;
+        this.projetos.sort((a, b) => (a.projetoId < b.projetoId ? -1 : 1));
       }
     });
   }
 
   limpaCampos() {
-    this.mainForm.controls.produto.setValue("");
+    this.mainForm.controls.projeto.setValue("");
     this.mainForm.controls.descricao.setValue("");
     this.mainForm.controls.valor.setValue("");    
   }
 
-  onSalvar() {
-    if(this.mainForm.controls.descricao.value != null && this.mainForm.controls.produto.value != "" &&
-    this.mainForm.controls.valor.value != null && this.mainForm.controls.valor.value > 0) {
-      let produto = {
-        descricao: this.mainForm.controls.descricao.value,
-        produto: this.mainForm.controls.produto.value,
-        valor: this.mainForm.controls.valor.value,
-        imagem: "",
-        cliente_Id: 10,
-        produtoId: this.produtoId
+  onSalvarImagem() {
+    if(this.projetoId == 0) {
+      if(this.mainForm.controls.descricao.value != null && this.mainForm.controls.projeto.value != "" &&
+      this.mainForm.controls.valor.value != null && this.mainForm.controls.valor.value > 0) {
+        this.onSalvar(2);
+      } else {
+        this.notifier.notify("error", "Você precisa preencher todos os dados do projeto primeiro!");
       }
-      console.log('produto',produto);
-      if(this.produtoId == 0) {
-        this.conexaoService.gravarProduto(produto).subscribe(result => {
-          this.produtos.push(result);
-          this.produtos.sort((a, b) => (a.produtoId < b.produtoId ? -1 : 1));
-          this.limpaCampos();
-          let imagem = {
-            tipoRegistro: 3,
-            registroId: result.produtoId,
-            urlImagem: this.mainForm.controls.urlImagem.value,
-          }
-          this.conexaoService.gravarImagem(imagem).subscribe(resultImagem => {
-            console.log('resultImagem imagem',resultImagem);
-            this.mainForm.controls.urlImagem.setValue("");
-          })
+    } else if(this.mainForm.controls.urlImagem.value == "" || this.mainForm.controls.urlImagem.value == null) {
+      this.notifier.notify("success", "Coloque uma url para a imagem antes de salvar!");
+    } else {
+      let imagem = { 
+        imagemId: this.imagemId,
+        registroId: this.projetoId,
+        tipoRegistro: 2,
+        urlImagem: this.mainForm.controls.urlImagem.value
+      }
+      if(this.imagemId == 0) {
+        this.conexaoService.gravarImagem(imagem).subscribe(resultImagem => {
+          this.imagemProjeto.push(resultImagem);
+          this.mainForm.controls.urlImagem.setValue("");
+          this.notifier.notify("success", "Imagem salva com sucesso!");
         });
       } else {
-        this.conexaoService.editarProduto(produto).subscribe(result => {
-          console.log('result',result);
+        this.conexaoService.editarImagem(imagem).subscribe(resultEdit => {
+
+        }) 
+      }
+    }
+  }
+
+  onSalvar(acao) {
+    if(this.mainForm.controls.descricao.value != null && this.mainForm.controls.projeto.value != "" &&
+    this.mainForm.controls.valor.value != null && this.mainForm.controls.valor.value > 0) {
+      let projeto = {
+        descricao: this.mainForm.controls.descricao.value,
+        projeto: this.mainForm.controls.projeto.value,
+        valor: this.mainForm.controls.valor.value,
+        imagem: "",
+        clienteId: this.conexaoService.decriptParam("registroId"),
+      }
+      console.log('projeto',projeto);
+      if(this.projetoId == 0) {
+        this.conexaoService.gravarProjeto(projeto).subscribe(result => {
+          this.projetoId = result.projetoId;
           this.limpaCampos();
-          this.carregaProdutos();
-          this.produtoId = 0;
-          // let imagem = {
-          //   tipoRegistro: 3,
-          //   registroId: result.produtoId,
-          //   urlImagem: this.mainForm.controls.urlImagem.value,
-          // }
+          if(acao == 1) {
+            this.notifier.notify("success", "Projeto salvo com sucesso!");
+          } else if(acao == 2){
+            this.onSalvarImagem();
+          }
         });
+      } else {
+        // this.conexaoService.editarProjeto(projeto).subscribe(result => {
+        //   console.log('result',result);
+        //   this.limpaCampos();
+        //   this.carregaProjetos();
+        //   this.projetoId = 0;
+        //   // let imagem = {
+        //   //   tipoRegistro: 3,
+        //   //   registroId: result.projetoId,
+        //   //   urlImagem: this.mainForm.controls.urlImagem.value,
+        //   // }
+        // });
       }
 
       // console.log('usuario',usuario);
     }
   }
 
-  editProduto(produto) {
-    this.produtoId = produto.produtoId;
-    this.mainForm.controls.produto.setValue(produto.produto);
-    this.mainForm.controls.descricao.setValue(produto.descricao);
-    this.mainForm.controls.urlImagem.setValue(produto.imagem);
-    this.mainForm.controls.valor.setValue(produto.valor);
+  addProjeto() {
+    this.isCadastro = true;    
   }
 
-  deleteProduto(produto) {
+  editProjeto(projeto) {
+    this.projetoId = projeto.projetoId;
+    this.mainForm.controls.projeto.setValue(projeto.projeto);
+    this.mainForm.controls.descricao.setValue(projeto.descricao);
+    this.mainForm.controls.urlImagem.setValue(projeto.imagem);
+    this.mainForm.controls.valor.setValue(projeto.valor);
+  }
+
+  deleteprojeto(projeto) {
+
+  }
+
+  editImagem(imagem,i) {
+    this.imagemId = imagem.imagemId;
+    this.mainForm.controls.urlImagem.setValue(imagem.urlImagem)
+    this.imagemProjeto.splice(i,0)
+  }
+
+
+  deleteImagem(imagem,i) {
 
   }
 
