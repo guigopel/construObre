@@ -43,7 +43,11 @@ export class HomeComponent implements OnInit {
     this.conexaoService.getLojas().subscribe(result => {
       console.log('result.result',result);
       if(result != null && result.id != 0) {
-        this.lojas = result.length == 1 ? result[0] : result;
+        if(result.length == 1) {
+          this.lojas.push(result[0]);
+        } else {
+          this.lojas = result;
+        }
       }
     })
   }

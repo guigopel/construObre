@@ -7,16 +7,17 @@
           <h1 class="mb-5">Encontre um profissional para lhe atender!</h1>
         </div>
         <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-            <div class="form-row">
-              <div class="col-12 col-md-9 mb-2 mb-md-0">
-                <input type="email" class="form-control form-control-lg" formControlName="txtPesquisa" (keyup)="limpouPesquisa()" placeholder="Pesquise pelo nome do profissional">
-              </div>
-              <div class="col-12 col-md-3">
-                <button type="submit" class="btn btn-block btn-lg btn-primary" (click)="pesquisar()">Pesquisar
-
-                </button>
-              </div>
+          <div class="form-row">
+            <div class="col-12 col-md-9 mb-2 mb-md-0">
+              <input type="email" class="form-control form-control-lg" formControlName="txtPesquisa"
+                (keyup)="limpouPesquisa()" placeholder="Pesquise pelo nome do profissional">
             </div>
+            <div class="col-12 col-md-3">
+              <button type="submit" class="btn btn-block btn-lg btn-primary" (click)="pesquisar()">Pesquisar
+
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -29,16 +30,16 @@
         <div class="column">
           <div class="post-module">
             <div class="thumbnail">
-              <img (click)="visualizarPro(item)" src="{{item.urlProfissional}}"/>
+              <img (click)="visualizarPro(item)" src="{{item.urlProfissional}}" />
             </div>
             <div (click)="visualizarPro(item)" class="post-content">
-                  <h1 class="title">{{item.nome}}</h1>
+              <h1 class="title" style="text-align: center;">{{item.nome}}</h1>
               <h2 class="sub_title">{{item.cidade}}</h2>
-              
+
               <div class="post-meta" style="display: grid;"><span style="color: black;">
-                {{item.servico == '0' ? 'Disponível' : 'Indisponível'}}</span>
-                <span class="comments"><a style="color: black;" > {{item.qtdAcesso}} acessos</a></span>
-                </div>
+                  {{item.servico == '0' ? 'Disponível' : 'Indisponível'}}</span>
+                <span class="comments"><a style="color: black;"> {{item.qtdAcesso}} acessos</a></span>
+              </div>
             </div>
           </div>
         </div>
@@ -55,20 +56,20 @@
       <div class="column">
         <div class="post-module">
           <div class="thumbnail">
-            <img (click)="visualizarLoja(item)" style="height: 210px;" src="{{item.urlProfissional}}"/>
+            <img (click)="visualizarLoja(item)" style="height: 210px;" src="{{item.urlProfissional}}" />
           </div>
           <div (click)="visualizarLoja(item)" class="post-content">
-                <h1 class="title">{{item.nome}}</h1>
+            <h1 class="title" style="text-align: center;">{{item.nome}}</h1>
             <h2 class="sub_title" style="text-align: center;">{{item.cidade}}</h2>
             <div class="post-meta" style="display: grid;">
-              <span style="text-align: center;" class="comments"><a style="color: black; text-align: center;"> {{item.qtdAcesso}} acessos</a></span>
-              </div>
+              <span style="text-align: center;" class="comments"><a style="color: black; text-align: center;">
+                  {{item.qtdAcesso}} acessos</a></span>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
   <!-- Footer -->
   <footer class="footer bg-light">
     <div class="container">
@@ -80,9 +81,9 @@
     </div>
   </footer>
 </form>
-  <!-- Bootstrap core JavaScript -->
-  <script src="../../assets/vendor/jquery/jquery.min.js"></script>
-  <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script src="../../assets/vendor/jquery/jquery.min.js"></script>
+<script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- </body>
 

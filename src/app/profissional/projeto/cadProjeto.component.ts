@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { throwToolbarMixedModesError } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
 import { ConexaoService } from 'src/app/conexao/conexao.service';
@@ -35,6 +36,7 @@ export class CadProjetoComponent implements OnInit {
   ngOnInit() {
     this.preencheFormGroup();
     this.permissao = this.conexaoService.decriptParam("tipoPermissao");
+    console.log(this.conexaoService.decriptParam("registroId"));
     if(!sessionStorage.getItem("tipoPermissao")) {
       this.router.navigate(["home"]);
     }
@@ -69,9 +71,9 @@ export class CadProjetoComponent implements OnInit {
   }
 
   limpaCampos() {
-    this.mainForm.controls.projeto.setValue("");
-    this.mainForm.controls.descricao.setValue("");
-    this.mainForm.controls.valor.setValue("");    
+    // this.mainForm.controls.projeto.setValue("");
+    // this.mainForm.controls.descricao.setValue("");
+    // this.mainForm.controls.valor.setValue("");    
   }
 
   onSalvarImagem() {
@@ -149,21 +151,29 @@ export class CadProjetoComponent implements OnInit {
   }
 
   editProjeto(projeto) {
+    this.isCadastro = true;
     this.projetoId = projeto.projetoId;
     this.mainForm.controls.projeto.setValue(projeto.projeto);
     this.mainForm.controls.descricao.setValue(projeto.descricao);
     this.mainForm.controls.urlImagem.setValue(projeto.imagem);
     this.mainForm.controls.valor.setValue(projeto.valor);
+    this.carregaImagem();
   }
 
   deleteprojeto(projeto) {
 
   }
 
+  carregaImagem() {
+    this.conexaoService.getImagensByProjetoId(this.projetoId).subscribe(result => {
+      this.imagemProjeto = result;
+    });
+  }
+
   editImagem(imagem,i) {
     this.imagemId = imagem.imagemId;
     this.mainForm.controls.urlImagem.setValue(imagem.urlImagem)
-    this.imagemProjeto.splice(i,0)
+    this.imagemProjeto.splice(i,1)
   }
 
 

@@ -11,6 +11,7 @@ import { ConexaoService } from '../conexao/conexao.service';
 export class HeaderComponent implements OnInit {
 
   isLogado = false;
+  isTipo = 0;
   private readonly notifier: NotifierService;
 
   constructor(
@@ -26,11 +27,10 @@ export class HeaderComponent implements OnInit {
     if(sessionStorage.getItem('token') == 'null' || sessionStorage.getItem('token') == null) {
       this.isLogado = false;
     } else {
-      console.log('aqui');
+      this.isTipo = this.conexaoService.decriptParam("tipoPermissao");      
       this.isLogado = true;
     }
-
-    console.log('isLogado',sessionStorage.getItem('token'));
+    
   }
 
   navigateHeader(rota) {
@@ -54,21 +54,17 @@ export class HeaderComponent implements OnInit {
   }
 
   logOut() {
-      // this.notifier.notify("success", "Logout realizado com sucesso. Volte sempre =D!");
-      sessionStorage.removeItem("usuario");
-      sessionStorage.removeItem("token");
-      sessionStorage.removeItem("tipoPermissao");
-      sessionStorage.removeItem("registroId");
-
+      this.notifier.notify("success", "Logout realizado com sucesso. Volte sempre =D!");
+      sessionStorage.clear();
+      this.isTipo = 0;
       setTimeout(() => {
         if(sessionStorage.getItem('token') == 'null' || sessionStorage.getItem('token') == null) {
           this.isLogado = false;
-        } else {
-          console.log('aqui');
+        } else {          
           this.isLogado = true;
         }
         this.router.navigate(["login"]);
-      }, 100);
+      }, 500);
 
   }
 }

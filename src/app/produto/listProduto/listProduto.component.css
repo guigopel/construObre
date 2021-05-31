@@ -122,9 +122,9 @@ body {
   font-weight: 400;
 }
 .post-module .post-content .description {
-  display: none;
+  /* display: none; */
   color: #666666;
-  font-size: 14px;
+  font-size: 20px;
   line-height: 1.8em;
 }
 .post-module .post-content .post-meta {

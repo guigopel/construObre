@@ -14,6 +14,7 @@ export class CadProdutoComponent implements OnInit {
   CryptoJS = require("crypto-js");
   permissao = 0;
   produtoId = 0;
+  imagemId = 0;
   isEdit = false;
   produtos = [];
   private readonly notifier: NotifierService;
@@ -52,8 +53,7 @@ export class CadProdutoComponent implements OnInit {
   }
 
   carregaProdutos() {
-    this.conexaoService.getProdutosCliente("10").subscribe(result => {
-      console.log('result.result',result);
+    this.conexaoService.getProdutoByClinteId(this.conexaoService.decriptParam("registroId")).subscribe(result => {
       if(result != null) {
         this.produtos = result;
         this.produtos.sort((a, b) => (a.produtoId < b.produtoId ? -1 : 1));
@@ -75,7 +75,8 @@ export class CadProdutoComponent implements OnInit {
         produto: this.mainForm.controls.produto.value,
         valor: this.mainForm.controls.valor.value,
         imagem: "",
-        cliente_Id: 10,
+        imagemId: "",
+        clienteId: this.conexaoService.decriptParam("registroId"),
         produtoId: this.produtoId
       }
       console.log('produto',produto);
@@ -95,16 +96,24 @@ export class CadProdutoComponent implements OnInit {
           })
         });
       } else {
+        console.log('produto',produto);
         this.conexaoService.editarProduto(produto).subscribe(result => {
           console.log('result',result);
           this.limpaCampos();
           this.carregaProdutos();
           this.produtoId = 0;
-          // let imagem = {
-          //   tipoRegistro: 3,
-          //   registroId: result.produtoId,
-          //   urlImagem: this.mainForm.controls.urlImagem.value,
-          // }
+          let imagem = {
+            imagemId: this.imagemId,
+            tipoRegistro: 3,
+            registroId: result.produtoId,
+            urlImagem: this.mainForm.controls.urlImagem.value,
+
+          }
+          this.conexaoService.editarImagem(imagem).subscribe(resultImagem => {
+            console.log('resultImagem imagem',resultImagem);
+            this.mainForm.controls.urlImagem.setValue("");
+            this.imagemId = 0;
+          })
         });
       }
 
@@ -114,6 +123,7 @@ export class CadProdutoComponent implements OnInit {
 
   editProduto(produto) {
     this.produtoId = produto.produtoId;
+    this.imagemId = produto.imagemId;
     this.mainForm.controls.produto.setValue(produto.produto);
     this.mainForm.controls.descricao.setValue(produto.descricao);
     this.mainForm.controls.urlImagem.setValue(produto.imagem);

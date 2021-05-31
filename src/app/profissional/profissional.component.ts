@@ -7,6 +7,22 @@ import { ConexaoService } from '../conexao/conexao.service';
 import * as _moment from 'moment';
 const moment = _moment;
 
+import {
+  ApexAxisChartSeries,
+  ApexTitleSubtitle,
+  ApexChart,
+  ApexXAxis,
+  ChartComponent
+} from "ng-apexcharts";
+
+export type ChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  title: ApexTitleSubtitle;
+  xaxis: ApexXAxis;
+};
+
+
 @Component({
   selector: 'app-profissional',
   templateUrl: './profissional.component.html',
@@ -14,7 +30,9 @@ const moment = _moment;
   encapsulation: ViewEncapsulation.None
 })
 export class ProfissionalComponent implements OnInit {
-
+  
+  @ViewChild("chart") chart: ChartComponent;
+  public chartOptions: Partial<ChartOptions>;
   @ViewChild('starAcabamento') starAcabamento;
   @ViewChild('starOrcamento') starOrcamento;
   @ViewChild('starTempoEntrega') starTempoEntrega;
@@ -26,9 +44,11 @@ export class ProfissionalComponent implements OnInit {
   isMostrar = 0;
   private readonly notifier: NotifierService;
   paramId = -1;
+  temProjeto = false;
   isListarC = false;
   imagemProjeto = [];
   comentarios = [];
+  projetoImagem = [];
   routerSub: any;
 
   constructor(
@@ -38,6 +58,24 @@ export class ProfissionalComponent implements OnInit {
     private router: Router,
   ) {
     this.notifier = notifierService;
+    this.chartOptions = {
+      series: [
+        {
+          name: "Series 1",
+          data: [4, 5, 3, 3]
+        }
+      ],
+      chart: {
+        height: 550,
+        type: "radar"
+      },
+      title: {
+        text: "Basic Radar Chart"
+      },
+      xaxis: {
+        categories: ["Orçamento", "Prazo de entrega", "Organização", "Acabamento"]
+      }
+    };
   }
 
   ngOnInit() {
@@ -60,6 +98,7 @@ export class ProfissionalComponent implements OnInit {
       tipoRegistro: 0
     }
     this.conexaoService.addQtdAcesso(acesso).subscribe(result => {      
+      console.log('result',result);
     });
   }
 
@@ -68,16 +107,22 @@ export class ProfissionalComponent implements OnInit {
       if (result != null && result.id != 0) {
         this.cliente = result[0];        
         this.adicionaAcesso();
+        this.carregaComentario();
         this.conexaoService.getProjetoByClienteId(this.paramId).subscribe(resultPrj => {
           if (resultPrj != null && resultPrj != undefined && resultPrj.length > 0) {
+            this.temProjeto = true;
             this.projetoDestaque = resultPrj[0];
-            this.carregaComentario();
             this.conexaoService.getItensProjeto(this.projetoDestaque.projetoId).subscribe(resultImage => {
               this.imagemProjeto = resultImage;
               this.imagemProjeto.map(v => v.isAtivo = false);
               this.imagemProjeto[0].isAtivo = true;
             });
+          } else {
+            this.temProjeto = false;
           }
+        });
+        this.conexaoService.getProjetoComImagem(this.paramId).subscribe(result => {
+          this.projetoImagem = result;
         });
       } else {
         this.notifier.notify("error", "Profissional não encontrado!");
@@ -89,10 +134,23 @@ export class ProfissionalComponent implements OnInit {
     });
   }
 
+  carregaProjeto(row) {
+    this.conexaoService.getProjetoByProjetoId(row.projetoId).subscribe(result => {
+      this.projetoDestaque = result[0];
+      this.conexaoService.getItensProjeto(this.projetoDestaque.projetoId).subscribe(resultImage => {
+        this.imagemProjeto = resultImage;
+        this.imagemProjeto.map(v => v.isAtivo = false);
+        this.imagemProjeto[0].isAtivo = true;
+      });
+    })
+  }
+
   carregaComentario() {
     this.conexaoService.getAvaliacaoByClienteId(this.paramId).subscribe(resultAvaliacoes => {      
+      console.log('resultAvaliacoes',resultAvaliacoes);
       this.comentarios = resultAvaliacoes;
       this.conexaoService.getComentarioByClienteId(this.paramId).subscribe(result => {
+        console.log(this.comentarios);
         this.comentarios.map((v,i) => {
             v.nome = result[i].nome;
             v.email = result[i].email;

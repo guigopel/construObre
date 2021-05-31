@@ -24,8 +24,8 @@
 }
 
 p {
-  margin-bottom: 0px;
-  font-size: 15px;
+  /* margin-bottom: 0px;
+  font-size: 15px; */
   color: black; }
 
 .contact-form-outer {
@@ -33,7 +33,7 @@ p {
 }
 
 .innerDiv {
-  width: 109% !important;
+  width: 129% !important;
 }
 
 .innerDivCad {

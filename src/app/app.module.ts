@@ -24,6 +24,7 @@ import { NotifierOptions, NotifierModule } from 'angular-notifier';
 import { RelacaoLojaComponent } from './loja/relacao/relacaoLoja.component';
 import { ListProdutoComponent } from './produto/listProduto/listProduto.component';
 import { CadProjetoComponent } from './profissional/projeto/cadProjeto.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 // import { ConexaoService } from './conexao/conexao.service';
 
 const customNotifierOptions: NotifierOptions = {
@@ -88,6 +89,7 @@ const customNotifierOptions: NotifierOptions = {
     AppRoutingModule,
     MatButtonModule,
     BrowserAnimationsModule,
+    NgApexchartsModule,
     MatFormFieldModule,
     HttpClientModule,
     ReactiveFormsModule,

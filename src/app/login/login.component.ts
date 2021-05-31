@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
           this.notifier.notify("success", "Login efetuado com sucesso!");
           sessionStorage.setItem('token', result.access_token);
           sessionStorage.setItem('usuario', result.user);
-          setTimeout(() => {
+          setTimeout(() => {            
             this.router.navigate(["home"]);
           }, 1000);
 

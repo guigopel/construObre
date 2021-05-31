@@ -68,6 +68,9 @@
           <li>
             <a href="/profissional">Profissionais</a>
           </li>
+          <li [hidden]="isTipo != 2 && isTipo != 1">
+            <a href="/cadProjeto">Projetos</a>
+          </li>
           <li>
             <a href="/lojas">Lojas</a>
           </li>
@@ -86,9 +89,12 @@
           <!-- <div [hidden]="!isLogado" class="div"> -->
 
             <li [hidden]="!isLogado">
+              <a href="/cadCliente">Perfil</a>
+            </li>
+            <li [hidden]="!isLogado">
               <a href="/login" (click)="logOut()">Sair</a>
             </li>
-          <!-- </div> -->
+            <!-- </div> -->
         </ul>
       </nav>
 

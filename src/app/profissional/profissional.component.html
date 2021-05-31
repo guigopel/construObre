@@ -3,7 +3,7 @@
     <section class="tm-mb-1" id="about">
         <div class="tm-row tm-about-row">
             <div class="tm-section-1-l col-md-5" style="padding-left: 0px;">
-                <img src="{{cliente.urlProfissional}}" alt="About image" class="tm-img-responsive">
+                <img style="max-height: 400px;" width="100%" src="{{cliente.urlProfissional}}" alt="About image" class="tm-img-responsive">
             </div>
             <article class="tm-section-1-r tm-bg-color-8" style="width: 58%; padding-top: 10px; padding-bottom: 10px;">
                 <h2 class="tm-mb-2 tm-title-color">Informações do profissional</h2>
@@ -30,6 +30,12 @@
 
             </article>
         </div>
+        <!-- <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [xaxis]="chartOptions.xaxis"
+        [title]="chartOptions.title"
+      ></apx-chart> -->
     </section>
     <div class="tm-bg-color-1 tm-mb-1 tm-row tm-social-row"
         style="padding: 40px 70px 40px 70px; background-color: #7381bd; ">
@@ -60,16 +66,16 @@
     </div>
     <section class="tm-mb-1 tm-row tm-services-row" id="services">
         <div [hidden]="isMostrar != 0" class="row marginBotPainel">
-            <div class="col-6">
+            <div [hidden]="!temProjeto" class="col-6">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         <li *ngFor="let item of imagemProjeto; let i = index;" data-target="#carouselExampleIndicators"
                             data-slide-to="i" [ngClass]="{'active': item.isAtivo}"></li>
                     </ol>
-                    <div class="carousel-inner" style="height: 400px" style="border-radius: 25px !important;">
+                    <div class="carousel-inner" style="height: 400px; width: 550px;" style="border-radius: 25px !important;">
                         <div *ngFor="let item of imagemProjeto; let i = index;" [ngClass]="{'active': item.isAtivo}"
                             class="carousel-item active" style="height: 400px;">
-                            <img style="height: 400px;" class="d-block w-100" src="{{item.urlImagem}}"
+                            <img style="height: 400px; width: 550px;" class="d-block w-100" src="{{item.urlImagem}}"
                                 alt="First slide">
                         </div>
                     </div>
@@ -84,13 +90,23 @@
                     </a>
                 </div>
             </div>
-            <div *ngIf="projetoDestaque" class="col-5">
+            <div [hidden]="!temProjeto" *ngIf="projetoDestaque" class="col-5" style="width: 60vw;"> 
                 <h1>Informações do projeto</h1>
-                <h4 style="margin-top: 15px;">{{projetoDestaque.projeto}}</h4>
-                <p> Valor Total: {{projetoDestaque.valor | currency: 'BRL'}}</p>
-                <p>Aqui será uma breve descrição do projeto contando onde que foi realizado talvez como foi o andamento
-                    das coisas e tal.</p>
+                <h4 style="margin-top: 15px; margin-bottom: 20px;">{{projetoDestaque.projeto}}</h4>
+                <p style="margin-bottom: 20px;"> Valor Total: {{projetoDestaque.valor | currency: 'BRL'}}</p>
+                <p>{{projetoDestaque.descricao}}</p>
                 <p>{{projetoDestaque.projeto}}</p>
+            </div>
+            <div [hidden]="temProjeto" class="col-12">
+                <h2 style="text-align: center;">Nenhum projeto cadastrado</h2>
+            </div>
+            <div class="row" style="padding-left: 15px; padding-top: 20px;">
+                <div class="col-12" style="display: flex;">
+                    <div *ngFor="let item of projetoImagem; let i = index;">
+                        <img (click)="carregaProjeto(item)"style="height: 200px; width: 250px !important; border-radius: 25px !important; margin-right: 20px;" class="d-block w-100" src="{{item.imagem}}"
+                                    alt="First slide">
+                    </div>
+                </div>
             </div>
             
         </div>

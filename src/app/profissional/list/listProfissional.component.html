@@ -1,6 +1,27 @@
 <form [formGroup]="mainForm">
   <!-- Testimonials -->
   <section class="testimonials text-center bg-light">
+    <div class="row">
+
+      <div class="col-6">
+        <strong>Mais acessados</strong>
+        <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [labels]="chartOptions.labels"
+        [responsive]="chartOptions.responsive"
+      ></apx-chart>
+      </div>
+      <div class="col-6">
+        <strong>Mais bem avaliados</strong>
+        <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [labels]="chartOptions.labels"
+        [responsive]="chartOptions.responsive"
+      ></apx-chart>
+      </div>
+    </div>
     <div class="row classRow">
       <div class="col-md-3" *ngFor="let item of clientes; let i = index;">
         <div class="column">

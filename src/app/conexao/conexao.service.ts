@@ -94,9 +94,19 @@ export class ConexaoService {
     return this.getGeneric("/clientes/" + clienteId, parametros);
   }
 
+  public getUsuario(usuarioId): Observable<any> {
+    let parametros = new HttpParams();
+    return this.getGeneric("/usuarios/" + usuarioId, parametros);
+  }
+
   public getComentarioByClienteId(clienteId): Observable<any> {
     let parametros = new HttpParams();
     return this.getGeneric("/comentarios/cliente/" + clienteId, parametros);
+  }
+
+  public getProdutoByClinteId(clienteId): Observable<any> {
+    let parametros = new HttpParams();
+    return this.getGeneric("/produtos/imagens/loja/" + clienteId, parametros);
   }
 
   public getAvaliacaoByClienteId(clienteId): Observable<any> {
@@ -111,6 +121,21 @@ export class ConexaoService {
   public getProjetoByClienteId(clienteId): Observable<any> {
     let parametros = new HttpParams();
     return this.getGeneric("/projetos/cliente/" + clienteId, parametros);
+  }
+
+  public getProjetoComImagem(clienteId): Observable<any> {
+    let parametros = new HttpParams();
+    return this.getGeneric("/projetos/imagem/" + clienteId, parametros);
+  }
+
+  public getProjetoByProjetoId(projetoId): Observable<any> {
+    let parametros = new HttpParams();
+    return this.getGeneric("/projetos/" + projetoId, parametros);
+  }
+
+  public getImagensByProjetoId(projetoId): Observable<any> {
+    let parametros = new HttpParams();
+    return this.getGeneric("/imagens/profissional/" + projetoId, parametros);
   }
 
   public getItensProjeto(projetoId): Observable<any> {

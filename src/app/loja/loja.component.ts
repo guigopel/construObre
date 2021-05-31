@@ -16,7 +16,7 @@ const moment = _moment;
 export class LojaComponent implements OnInit {
 
   mainForm: FormGroup;
-  cliente = {};
+  cliente:any = {};
   projetoDestaque: any = {};
   isMostrar = 0;
   private readonly notifier: NotifierService;
@@ -37,7 +37,7 @@ export class LojaComponent implements OnInit {
 
   ngOnInit() {
     this.preencheFormGroup();
-    this.routerSub = this.route.params.subscribe(params => {
+    this.routerSub = this.route.params.subscribe(params => {      
       this.paramId = params["id"];
       if (this.paramId >= 0) {
         this.carregaProfissional();
@@ -48,14 +48,30 @@ export class LojaComponent implements OnInit {
     });
   }
 
+  adicionaAcesso() {    
+    let acesso = {
+      acessoId: this.cliente.acessoId,
+      registroId: this.paramId,
+      tipoRegistro: 1
+    }    
+    this.conexaoService.addQtdAcesso(acesso).subscribe(result => {            
+    });
+  }
+
   carregaProfissional() {
-    this.conexaoService.getProfissional(this.paramId).subscribe(result => {
+    this.conexaoService.getProfissional(this.paramId).subscribe(result => {      
       if (result != null && result.id != 0) {
         this.cliente = result[0];
-        this.conexaoService.getProdutosCliente(this.paramId.toString()).subscribe(result => {
-          console.log('result.result', result);
+        this.adicionaAcesso();
+        this.conexaoService.getProdutoByClinteId(this.paramId.toString()).subscribe(result => {
+          console.log('result',result);
+        // this.conexaoService.getProdutos().subscribe(result => {          
           if (result != null) {
-            this.produtos = result;
+            if(result.length == 1) {
+              this.produtos.push(result[0]);
+            } else {
+              this.produtos = result;
+            }
           }
         });
       } else {

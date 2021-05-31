@@ -1,19 +1,41 @@
 <form [formGroup]="mainForm">
   <!-- Testimonials -->
   <section class="testimonials text-center bg-light">
+    <div class="row">
+
+      <div class="col-6">
+        <strong>Mais acessados</strong>
+        <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [labels]="chartOptions.labels"
+        [responsive]="chartOptions.responsive"
+      ></apx-chart>
+      </div>
+      <div class="col-6">
+        <strong>Mais bem avaliados</strong>
+        <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [labels]="chartOptions.labels"
+        [responsive]="chartOptions.responsive"
+      ></apx-chart>
+      </div>
+    </div>
     <div class="row classRow">
       <div class="col-md-3" *ngFor="let item of lojas; let i = index;">
         <div class="column">
           <div class="post-module">
             <div class="thumbnail">
-              <img (click)="visualizarLoja(item)" style="height: 210px;" src="{{item.urlProfissional}}"/>
+              <img (click)="visualizarLoja(item)" style="height: 210px;" src="{{item.urlProfissional}}" />
             </div>
             <div class="post-content" (click)="visualizarLoja(item)">
-                  <h1 class="title">{{item.nome}}</h1>
+              <h1 class="title">{{item.nome}}</h1>
               <h2 class="sub_title">{{item.cidade}}</h2>
               <div class="post-meta">
-                <span class="timestamp">
-                  </span><span class="comments"><i class="fa fa-comments"></i><a href="#"> x Comentários</a></span></div>
+                <span style="text-align: center;" class="comments"><a style="color: black; text-align: center;">
+                  {{item.qtdAcesso}} acessos</a></span>
+              </div>
             </div>
           </div>
         </div>
@@ -21,5 +43,5 @@
     </div>
   </section>
 </form>
-  <script src="../../assets/vendor/jquery/jquery.min.js"></script>
-  <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../../assets/vendor/jquery/jquery.min.js"></script>
+<script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

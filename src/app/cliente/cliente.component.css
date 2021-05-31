@@ -6,6 +6,12 @@ body {
 .mat-form-field-appearance-fill .mat-form-field-flex {
   background-color: white;
 }
+
+p {
+  margin-bottom: 0px;
+  font-size: 15px;
+  color: black; }
+  
 .page-content {
   width: 100%;
   margin:  0 auto;
