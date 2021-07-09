@@ -50,6 +50,10 @@ export class ProfissionalComponent implements OnInit {
   comentarios = [];
   projetoImagem = [];
   routerSub: any;
+  mediaOrc = 0;
+  mediaPrazo = 0;
+  mediaOrga = 0;
+  mediaAcaba = 0;
 
   constructor(
     private conexaoService: ConexaoService,
@@ -70,7 +74,7 @@ export class ProfissionalComponent implements OnInit {
         type: "radar"
       },
       title: {
-        text: "Basic Radar Chart"
+        text: "Média de avaliações"
       },
       xaxis: {
         categories: ["Orçamento", "Prazo de entrega", "Organização", "Acabamento"]
@@ -122,6 +126,7 @@ export class ProfissionalComponent implements OnInit {
           }
         });
         this.conexaoService.getProjetoComImagem(this.paramId).subscribe(result => {
+          console.log('result',result);
           this.projetoImagem = result;
         });
       } else {
@@ -138,6 +143,7 @@ export class ProfissionalComponent implements OnInit {
     this.conexaoService.getProjetoByProjetoId(row.projetoId).subscribe(result => {
       this.projetoDestaque = result[0];
       this.conexaoService.getItensProjeto(this.projetoDestaque.projetoId).subscribe(resultImage => {
+        console.log('resultImage',resultImage);
         this.imagemProjeto = resultImage;
         this.imagemProjeto.map(v => v.isAtivo = false);
         this.imagemProjeto[0].isAtivo = true;
@@ -149,6 +155,15 @@ export class ProfissionalComponent implements OnInit {
     this.conexaoService.getAvaliacaoByClienteId(this.paramId).subscribe(resultAvaliacoes => {      
       console.log('resultAvaliacoes',resultAvaliacoes);
       this.comentarios = resultAvaliacoes;
+      for (let i = 0; i < this.comentarios.length; i++) {        
+        this.mediaOrc = this.comentarios[i].orcamento;
+        this.mediaPrazo = this.comentarios[i].tempoEntrega;
+        this.mediaOrga = this.comentarios[i].organizacao;
+        this.mediaAcaba = this.comentarios[i].acabamento;
+      }
+      
+      // categories: ["Orçamento", "Prazo de entrega", "Organização", "Acabamento"]
+      // this.chartOptions.series[0].data.push(this.mediaOrc/this.comentarios.length);
       this.conexaoService.getComentarioByClienteId(this.paramId).subscribe(result => {
         console.log(this.comentarios);
         this.comentarios.map((v,i) => {

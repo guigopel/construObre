@@ -30,12 +30,12 @@
 
             </article>
         </div>
-        <!-- <apx-chart
+        <apx-chart
         [series]="chartOptions.series"
         [chart]="chartOptions.chart"
         [xaxis]="chartOptions.xaxis"
         [title]="chartOptions.title"
-      ></apx-chart> -->
+      ></apx-chart>
     </section>
     <div class="tm-bg-color-1 tm-mb-1 tm-row tm-social-row"
         style="padding: 40px 70px 40px 70px; background-color: #7381bd; ">
@@ -113,7 +113,7 @@
         <div [hidden]="isMostrar != 1" class="row marginBotPainel">
             <div class="col-11">
                 <div *ngFor="let item of comentarios; let i = index;"
-                    class="tm-bg-color-white tm-contact-main innerDiv">
+                    class="tm-bg-color-white tm-contact-main innerDivComentario">
                     <div class="map-outer blocoComentarios">
                         <label>Acabamento</label>
                         <star-rating value="{{item.acabamento}}" totalstars="5" checkedcolor="yellow"

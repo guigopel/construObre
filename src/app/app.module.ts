@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatButtonModule} from '@angular/material/button';
 import { CadProdutoComponent } from './produto/cadProduto.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -25,6 +25,7 @@ import { RelacaoLojaComponent } from './loja/relacao/relacaoLoja.component';
 import { ListProdutoComponent } from './produto/listProduto/listProduto.component';
 import { CadProjetoComponent } from './profissional/projeto/cadProjeto.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+// import { NgxCaptchaModule } from 'ngx-captcha';
 // import { ConexaoService } from './conexao/conexao.service';
 
 const customNotifierOptions: NotifierOptions = {
@@ -91,6 +92,7 @@ const customNotifierOptions: NotifierOptions = {
     BrowserAnimationsModule,
     NgApexchartsModule,
     MatFormFieldModule,
+    // NgxCaptchaModule,
     HttpClientModule,
     ReactiveFormsModule,
     MatTableModule,
@@ -106,7 +108,7 @@ const customNotifierOptions: NotifierOptions = {
     DropdownModule,
     BrowserModule,
     DropdownModule,
-    NgbModule.forRoot()
+    // NgbModule.forRoot()
   ],
   providers: [
     // ConexaoService

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
-import { ConexaoService } from '../conexao/conexao.service';
+import { ConexaoService } from '../conexao/conexao.service'; 
 
 @Component({
   selector: 'app-login',
@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
 
   mainForm: FormGroup;
   private readonly notifier: NotifierService;
+  siteKey: string;
 
   constructor(
     private conexaoService: ConexaoService,
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
   ) {
     this.notifier = notifierService;
+    // this.siteKey = "6LcAk4AbAAAAAF6jrk5OYpJua3qGbv-diHiQ132d";
   }
 
   ngOnInit() {
@@ -32,13 +34,14 @@ export class LoginComponent implements OnInit {
   preencheFormGroup() {
     this.mainForm = new FormGroup({
       email: new FormControl(null),
-      senha: new FormControl(null)
+      senha: new FormControl(null),
+      recaptcha: new FormControl(null)
     });
   }
 
   onLogin() {
     if(this.mainForm.controls.email.value != null && this.mainForm.controls.email.value != "" &&
-    this.mainForm.controls.senha.value != null && this.mainForm.controls.senha.value != "") {
+    this.mainForm.controls.senha.value != null && this.mainForm.controls.senha.value != "" && this.mainForm.controls.recaptcha.value != null) {
       let login = {
         email: this.mainForm.controls.email.value,
         senha: this.mainForm.controls.senha.value
@@ -53,12 +56,11 @@ export class LoginComponent implements OnInit {
           this.conexaoService.criptParam(result.registroId.toString(), "registroId");
           this.conexaoService.criptParam(this.mainForm.controls.email.value.toString(), "email");
           this.notifier.notify("success", "Login efetuado com sucesso!");
-          sessionStorage.setItem('token', result.access_token);
+          this.conexaoService.criptParam(result.access_token.toString(), "token");
           sessionStorage.setItem('usuario', result.user);
           setTimeout(() => {            
             this.router.navigate(["home"]);
           }, 1000);
-
         }
 
       })

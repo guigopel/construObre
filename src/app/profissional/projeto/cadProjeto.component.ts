@@ -166,6 +166,7 @@ export class CadProjetoComponent implements OnInit {
 
   carregaImagem() {
     this.conexaoService.getImagensByProjetoId(this.projetoId).subscribe(result => {
+      console.log('result',result);
       this.imagemProjeto = result;
     });
   }

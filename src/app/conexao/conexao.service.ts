@@ -22,13 +22,6 @@ export class ConexaoService {
     return this.http.post(this.backOnline + controllerUrl, obj, { headers: headers, params: parametros, reportProgress: true });
   }
 
-  protected put(controllerUrl: string, obj: any): Observable<any> {
-    let headers = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json;charset=UTF-8');
-    let parametros = new HttpParams();
-    return this.http.put(this.backOnline + controllerUrl, obj, { headers: headers, params: parametros, reportProgress: true });
-  }
-
   public getGeneric(controllerUrl: string, parametros: HttpParams): Observable<any> {
     return this.http.get(this.backOnline + controllerUrl, { params: parametros });
   }
@@ -62,22 +55,6 @@ export class ConexaoService {
 
   public gravarAvaliacao(avaliacao: any): Observable<any> {
     return this.post("/avaliacoes", avaliacao);
-  }
-
-  public editarProduto(produto: any): Observable<any> {
-    return this.put("/produtos/" + produto.produtoId, produto);
-  }
-
-  public editarProjeto(projeto: any): Observable<any> {
-    return this.put("/projetos/" + projeto.projetoId, projeto);
-  }
-
-  public addQtdAcesso(acesso: any): Observable<any> {
-    return this.put("/acessos/" + acesso.acessoId, acesso);
-  }
-
-  public editarImagem(imagem: any): Observable<any> {
-    return this.put("/imagens/" + imagem.imagemId, imagem);
   }
 
   public gravarCliente(cliente: any): Observable<any> {
@@ -188,6 +165,29 @@ export class ConexaoService {
     })
     console.log('headers', headers);
     return this.http.get(this.backOnline + "/logout", { headers: headers })
+  }
+
+  protected put(controllerUrl: string, obj: any): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json;charset=UTF-8');
+    let parametros = new HttpParams();
+    return this.http.put(this.backOnline + controllerUrl, obj, { headers: headers, params: parametros, reportProgress: true });
+  }
+
+  public editarProduto(produto: any): Observable<any> {
+    return this.put("/produtos/" + produto.produtoId, produto);
+  }
+
+  public editarProjeto(projeto: any): Observable<any> {
+    return this.put("/projetos/" + projeto.projetoId, projeto);
+  }
+
+  public addQtdAcesso(acesso: any): Observable<any> {
+    return this.put("/acessos/" + acesso.acessoId, acesso);
+  }
+
+  public editarImagem(imagem: any): Observable<any> {
+    return this.put("/imagens/" + imagem.imagemId, imagem);
   }
 
   private handleError(error: any) {
